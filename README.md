@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7cb5b2cb-5969-42ac-b455-18b35dadfa6a/deploy-status)](https://app.netlify.com/sites/isaaccorbrey/deploys)
+
 # isaaccorbrey.com
 
 My personal website. See it in action: https://www.isaaccorbrey.com
