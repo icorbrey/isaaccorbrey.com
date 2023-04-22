@@ -11,6 +11,11 @@ export const getPlatformIcon = (platform: Platform) => {
 	}
 };
 
+export const getPlatformRepo = (platform: Platform, repo: string) => (`${{
+	[Platform.Github]: 'https://github.com',
+	[Platform.Printables]: ''
+}[platform]}/${repo}`)
+
 export const getPlatformText = (platform: Platform) => {
 	switch (platform) {
 		case Platform.Printables: return 'Check it out on Printables!';

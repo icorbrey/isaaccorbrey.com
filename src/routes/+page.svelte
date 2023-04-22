@@ -17,7 +17,6 @@
 		<ProjectCard
 			title="Nintendo 64 Peripheral Access Crate"
 			description="A low-level registry wrapper for building Rust applications on the Nintendo 64."
-			href="https://github.com/icorbrey/nintendo64-pac"
 			repository="icorbrey/nintendo64-pac"
 			platform={Platform.Github}
 			language={Language.Rust}
@@ -25,7 +24,6 @@
 		<ProjectCard
 			title="Rust Raytracer"
 			description="A simple raytracer, built in Rust."
-			href="https://github.com/icorbrey/rustrays"
 			repository="icorbrey/rustrays"
 			platform={Platform.Github}
 			language={Language.Rust}
@@ -33,7 +31,6 @@
 		<ProjectCard
 			title="Gitty"
 			description="A set of quality-of-life utility scripts for Git."
-			href="https://github.com/icorbrey/gitty"
 			repository="icorbrey/gitty"
 			platform={Platform.Github}
 			language={Language.Shell}
@@ -41,7 +38,6 @@
 		<ProjectCard
 			title="Uncertain"
 			description="Defines a mathematically uncertain number type for scientific applications."
-			href="https://github.com/icorbrey/uncertain"
 			repository="icorbrey/uncertain"
 			platform={Platform.Github}
 			language={Language.Python}
@@ -49,7 +45,6 @@
 		<ProjectCard
 			title="Sauron"
 			description="A simple utility for searching for packages on the AUR."
-			href="https://github.com/icorbrey/sauron"
 			repository="icorbrey/sauron"
 			platform={Platform.Github}
 			language={Language.Python}

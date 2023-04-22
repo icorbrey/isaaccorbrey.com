@@ -23,7 +23,6 @@
 				language={Language.Rust}
 				repository="user/repo"
 				title="Project Title"
-				href="#"
 			/>
 		{/each}
 	</CardList>

@@ -13,13 +13,32 @@
 	}}
 />
 
-<Story name="GitHub Project">
+<Story name="Rust Project">
 	<ProjectCard
 		description="This is a cool project that you should totally check out."
 		platform={Platform.Github}
 		language={Language.Rust}
 		repository="user/repo"
 		title="Project Title"
-		href="#"
+	/>
+</Story>
+
+<Story name="Python Project">
+	<ProjectCard
+		description="This is a cool project that you should totally check out."
+		platform={Platform.Github}
+		language={Language.Python}
+		repository="user/repo"
+		title="Project Title"
+	/>
+</Story>
+
+<Story name="Shell Project">
+	<ProjectCard
+		description="This is a cool project that you should totally check out."
+		platform={Platform.Github}
+		language={Language.Shell}
+		repository="user/repo"
+		title="Project Title"
 	/>
 </Story>
