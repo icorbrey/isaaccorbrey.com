@@ -7,7 +7,7 @@
 		<div class="inner">
 			<a href="/"><h1>Isaac Corbrey</h1></a>
 			&nbsp;
-			<a href="/support">Support Me</a>
+			<a href="https://github.com/sponsors/icorbrey">Support Me</a>
 		</div>
 	</ScreenColumn>
 </header>
