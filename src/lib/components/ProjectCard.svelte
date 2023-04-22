@@ -81,7 +81,7 @@
 			}
 
 			.icon {
-				font-size: 16px;
+				font-size: 17.5px;
 			}
 		}
 	}
