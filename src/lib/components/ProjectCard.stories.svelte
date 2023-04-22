@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Language } from '$lib/utilities/language';
+	import { Platform } from '$lib/utilities/platform';
 	import ProjectCard from './ProjectCard.svelte';
-	import { Language } from '$lib/types/Language';
-	import { Platform } from '$lib/types/Platform';
 </script>
 
 <Meta

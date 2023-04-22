@@ -24,5 +24,6 @@
 	h5,
 	h6 {
 		font-family: 'Nunito Sans', sans-serif;
+		margin-top: 21px;
 	}
 </style>
