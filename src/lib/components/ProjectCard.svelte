@@ -1,31 +1,34 @@
 <script lang="ts">
-	import { Language, getLanguageColor, getLanguageIcon } from '$lib/utilities/language';
-	import { Platform, getPlatformIcon, getPlatformRepo } from '$lib/utilities/platform';
+	import * as lang from '$lib/utilities/language';
+	import * as plat from '$lib/utilities/platform';
 	import FontAwesome from 'svelte-fa';
 
 	export let description: string;
 	export let repository: string;
-	export let language: Language;
-	export let platform: Platform;
+	export let language: lang.Language;
+	export let platform: plat.Platform;
 	export let title: string;
 </script>
 
-<a class="project" href={getPlatformRepo(platform, repository)}>
+<a class="project" href={plat.getRepo(platform, repository)}>
 	<div class="content">
 		<h3 class="title">{title}</h3>
 		<p class="description">{description}</p>
 		<div class="subrow">
 			<span class="icon">
-				<FontAwesome icon={getPlatformIcon(platform)} />
+				<FontAwesome icon={plat.getIcon(platform)} />
 			</span>
 			<span class="repository">{repository}</span>
 			&nbsp;
 			<span class="icon">
-				<FontAwesome icon={getLanguageIcon(language)} />
+				<FontAwesome icon={lang.getIcon(language)} />
 			</span>
 		</div>
 	</div>
-	<div class="language-line" style={`background-color: ${getLanguageColor(language)}`} />
+	<div
+		class="language-line"
+		style={`background-color: ${lang.getColor(language)}`}
+	/>
 </a>
 
 <style lang="scss">

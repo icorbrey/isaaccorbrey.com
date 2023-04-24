@@ -2,8 +2,8 @@
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import CardList from '$lib/layout/CardList.svelte';
-	import { Language } from '$lib/utilities/language';
-	import { Platform } from '$lib/utilities/platform';
+	import * as lang from '$lib/utilities/language';
+	import * as plat from '$lib/utilities/platform';
 </script>
 
 <Meta
@@ -14,15 +14,15 @@
 	}}
 />
 
-<Story name="Card List Demo">
+<Story name="Demo">
 	<CardList>
-		{#each [...new Array(10)] as _}
+		{#each [...new Array(9)] as _, i}
 			<ProjectCard
+				title={`Cool Project ${i + 1}`}
 				description="This is a cool project that you should totally check out."
-				platform={Platform.Github}
-				language={Language.Rust}
+				platform={plat.Platform.Github}
+				language={lang.Language.Rust}
 				repository="user/repo"
-				title="Project Title"
 			/>
 		{/each}
 	</CardList>

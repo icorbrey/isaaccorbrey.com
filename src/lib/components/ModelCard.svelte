@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { faCube } from '@fortawesome/free-solid-svg-icons';
-	import { getPlatformText, type Platform } from '$lib/utilities/platform';
+	import * as plat from '$lib/utilities/platform';
 	import FontAwesome from 'svelte-fa';
 
 	export let description: string;
-	export let platform: Platform;
+	export let platform: plat.Platform;
 	export let title: string;
 	export let href: string;
 	export let alt: string;
@@ -17,10 +17,8 @@
 		<h3 class="title">{title}</h3>
 		<p class="description">{description}</p>
 		<div class="subrow">
-			<span class="icon">
-				<FontAwesome icon={faCube} />
-			</span>
-			<span class="subtext">{getPlatformText(platform)}</span>
+			<span class="icon"><FontAwesome icon={faCube} /></span>
+			<span class="subtext">{plat.getText(platform)}</span>
 		</div>
 	</div>
 </a>
