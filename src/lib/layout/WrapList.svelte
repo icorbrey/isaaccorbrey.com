@@ -4,7 +4,6 @@
 
 <style lang="scss">
 	.card-list {
-		padding-top: 14px;
 		gap: 21px;
 
 		@media screen and (min-width: 0px) {
@@ -24,8 +23,8 @@
 			grid-template-rows: repeat(auto);
 		}
 
-		> :global(*) {
-			flex: 1 1 auto;
+		&:not(:first-child) {
+			padding-top: 14px;
 		}
 	}
 </style>

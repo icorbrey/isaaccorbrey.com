@@ -17,11 +17,10 @@
 		box-shadow: 0px 7px 7px 0px rgba(0, 0, 0, 0.3);
 
 		.inner {
-			display: grid;
+			font-family: 'Nunito Sans', sans-serif;
 			grid-template-columns: auto 1fr auto;
 			align-items: center;
-
-			font-family: 'Nunito Sans', sans-serif;
+			display: grid;
 
 			a {
 				text-decoration: none;

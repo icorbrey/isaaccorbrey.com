@@ -11,6 +11,6 @@
 	}}
 />
 
-<Story name="Header Demo">
+<Story name="Header">
 	<Header />
 </Story>

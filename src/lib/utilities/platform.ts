@@ -5,12 +5,6 @@ export enum Platform {
 	Printables = "Platforms/Printables",
 }
 
-export const getIcon = (platform: Platform) => {
-	switch (platform) {
-		case Platform.Github: return faGithub;
-	}
-};
-
 export const getRepo = (platform: Platform, repo: string) => (`${{
 	[Platform.Github]: 'https://github.com',
 	[Platform.Printables]: ''

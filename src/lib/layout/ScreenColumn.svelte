@@ -10,9 +10,13 @@
 		align-items: center;
 		display: flex;
 
+		&:not(:first-child) {
+			margin-top: 35px;
+		}
+
 		.inner {
-			max-width: 1400px;
-			padding: 0px 21px;
+			max-width: 1200px;
+			padding: 0px 14px;
 			height: 100%;
 			width: 100%;
 		}

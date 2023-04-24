@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let level: 1 | 2 | 3 | 4 | 5 | 6;
+	export let level: 1 | 2 | 3 | 4 | 5 | 6 = 1;
 </script>
 
 {#if level === 1}
@@ -24,6 +24,28 @@
 	h5,
 	h6 {
 		font-family: 'Nunito Sans', sans-serif;
-		margin-top: 21px;
+		margin: 0;
+	}
+
+	h1,
+	h2 {
+		&:not(:first-child) {
+			margin-top: 28px;
+		}
+	}
+
+	h3,
+	h4 {
+		&:not(:first-child) {
+			margin-top: 21px;
+		}
+	}
+
+	h5:not(:first-child) {
+		margin-top: 14px;
+	}
+
+	h6:not(:first-child) {
+		margin-top: 7px;
 	}
 </style>

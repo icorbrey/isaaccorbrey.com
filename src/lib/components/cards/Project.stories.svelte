@@ -2,19 +2,19 @@
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import * as lang from '$lib/utilities/language';
 	import * as plat from '$lib/utilities/platform';
-	import ProjectCard from './ProjectCard.svelte';
+	import Project from './Project.svelte';
 </script>
 
 <Meta
 	title="Components/Cards/Project Card"
-	component={ProjectCard}
+	component={Project}
 	parameters={{
 		layout: 'centered',
 	}}
 />
 
 <Story name="Rust Project">
-	<ProjectCard
+	<Project
 		description="This is a cool project that you should totally check out."
 		platform={plat.Platform.Github}
 		language={lang.Language.Rust}
@@ -24,7 +24,7 @@
 </Story>
 
 <Story name="Python Project">
-	<ProjectCard
+	<Project
 		description="This is a cool project that you should totally check out."
 		platform={plat.Platform.Github}
 		language={lang.Language.Python}
@@ -34,7 +34,7 @@
 </Story>
 
 <Story name="Shell Project">
-	<ProjectCard
+	<Project
 		description="This is a cool project that you should totally check out."
 		platform={plat.Platform.Github}
 		language={lang.Language.Shell}
