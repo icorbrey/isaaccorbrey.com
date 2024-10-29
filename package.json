@@ -8,11 +8,15 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "install:git-hooks": "lefthook install"
   },
   "dependencies": {
-    "astro": "^4.16.7",
     "@astrojs/check": "^0.9.4",
+    "astro": "^4.16.7",
     "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "lefthook": "^1.8.2"
   }
 }
