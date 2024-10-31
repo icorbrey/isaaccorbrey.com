@@ -1,0 +1,29 @@
+:root {
+	font-size: 87.5%;
+
+	--background-1: #1e1e1e;
+	--background-2: #282828;
+	--background-3: #ffffff1c;
+	--foreground-1: #dcdcdc;
+	--foreground-2: #8c8c8c;
+	--foreground-3: #686868;
+	--ui-1: #373737;
+	--ui-2: #515151;
+	--ui-3: #595959;
+	--red-400: #ff3b11;
+	--orange-400: #ff9502;
+	--yellow-400: #ffcc00;
+	--green-400: #2acd41;
+	--cyan-400: #02c7be;
+	--blue-400: #027aff;
+	--purple-400: #b051de;
+	--pink-400: #ff2e55;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
