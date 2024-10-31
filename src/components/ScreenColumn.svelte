@@ -16,7 +16,10 @@
 	}
 
 	.inner {
+		flex-flow: column nowrap;
 		flex: 0 1 auto;
+		display: flex;
+		align-items: flex-start;
 
 		max-width: 55rem;
 		width: 100%;

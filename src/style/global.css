@@ -1,3 +1,13 @@
+* {
+	margin: 0;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 :root {
 	font-size: 87.5%;
 
@@ -18,6 +28,7 @@
 	--cyan-400: #02c7be;
 	--blue-400: #027aff;
 	--blue-500: #0065d9;
+	--blue-600: #0056b8;
 	--purple-400: #b051de;
 	--pink-400: #ff2e55;
 }
@@ -31,8 +42,38 @@ body {
 }
 
 body {
-	font-family: 'Afacad Flux', sans-serif;
 	background: var(--background-1);
+	isolation: isolate;
+
+	font-family: 'Afacad Flux', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	line-height: 1.5;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
 }
 
 h1,
@@ -51,7 +92,8 @@ h2 {
 	font-size: 2.25rem;
 }
 
-h2:not(:first-child) {
+h2:not(:first-child),
+*:not(:first-child):has(> h2:first-child) {
 	margin-top: 2rem;
 }
 
@@ -59,7 +101,8 @@ h3 {
 	font-size: 1.75rem
 }
 
-h3:not(:first-child) {
+h3:not(:first-child),
+*:not(:first-child):has(> h3:first-child) {
 	margin-top: 1.5rem;
 }
 
@@ -67,17 +110,25 @@ h4 {
 	font-size: 1.4rem;
 }
 
-h4:not(:first-child) {
+h4:not(:first-child),
+*:not(:first-child):has(> h4:first-child) {
 	margin-top: 1rem;
 }
 
-p {
+p,
+ul,
+ol {
 	color: var(--foreground-2);
 	font-size: 1.4rem;
 	margin: 0;
 }
 
-p:not(:first-child) {
+p:not(:first-child),
+*:not(:first-child):has(> p:first-child),
+ul:not(:first-child),
+*:not(:first-child):has(> ul:first-child),
+ol:not(:first-child),
+*:not(:first-child):has(> ol:first-child) {
 	margin-top: 0.75rem;
 }
 
