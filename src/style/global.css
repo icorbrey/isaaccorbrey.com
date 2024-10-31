@@ -5,8 +5,9 @@
 	--background-2: #282828;
 	--background-3: #ffffff1c;
 	--foreground-1: #dcdcdc;
-	--foreground-2: #8c8c8c;
-	--foreground-3: #686868;
+	--foreground-2: #bfbfbf;
+	--foreground-3: #8c8c8c;
+	--foreground-4: #686868;
 	--ui-1: #373737;
 	--ui-2: #515151;
 	--ui-3: #595959;
@@ -16,6 +17,7 @@
 	--green-400: #2acd41;
 	--cyan-400: #02c7be;
 	--blue-400: #027aff;
+	--blue-500: #0065d9;
 	--purple-400: #b051de;
 	--pink-400: #ff2e55;
 }
@@ -26,4 +28,65 @@ body {
 	width: 100%;
 	padding: 0;
 	margin: 0;
+}
+
+body {
+	font-family: 'Afacad Flux', sans-serif;
+	background: var(--background-1);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	color: var(--foreground-1);
+	margin: 0;
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+h2 {
+	font-size: 2.25rem;
+}
+
+h2:not(:first-child) {
+	margin-top: 2rem;
+}
+
+h3 {
+	font-size: 1.75rem
+}
+
+h3:not(:first-child) {
+	margin-top: 1.5rem;
+}
+
+h4 {
+	font-size: 1.4rem;
+}
+
+h4:not(:first-child) {
+	margin-top: 1rem;
+}
+
+p {
+	color: var(--foreground-2);
+	font-size: 1.4rem;
+	margin: 0;
+}
+
+p:not(:first-child) {
+	margin-top: 0.75rem;
+}
+
+a {
+	color: var(--blue-400);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--blue-500);
+	text-decoration: underline;
 }
