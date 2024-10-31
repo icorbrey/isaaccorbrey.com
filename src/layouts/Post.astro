@@ -1,16 +1,9 @@
 ---
-import type { MarkdownLayoutProps } from "astro";
 import Root from "./Root.astro";
-
-type Props = MarkdownLayoutProps<{
-    tags: string[];
-    title: string;
-    date: string;
-}>;
 
 const { frontmatter } = Astro.props;
 ---
 
-<Root title={frontmatter.title}>
+<Root title={`${frontmatter.title} - Isaac Corbrey`}>
     <slot />
 </Root>

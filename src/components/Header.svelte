@@ -28,6 +28,7 @@
 
 	ul {
 		flex-flow: row nowrap;
+		margin: 0 !important;
 		display: flex;
 
 		gap: 1.5rem;

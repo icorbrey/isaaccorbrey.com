@@ -6,3 +6,9 @@
 	<h1>{title}</h1>
 	<slot />
 </div>
+
+<style>
+	div {
+		padding: 8rem 0rem;
+	}
+</style>
