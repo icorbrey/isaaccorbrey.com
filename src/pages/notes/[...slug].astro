@@ -1,0 +1,16 @@
+---
+import Note from "../../layouts/Note.astro";
+import { getEntry } from "astro:content";
+
+const note = await getEntry("notes", Astro.params.slug!);
+
+if (note === undefined || (import.meta.env.PROD && !note.data.publishedOn)) {
+    return Astro.redirect("/404");
+}
+
+const { Content } = await note.render();
+---
+
+<Note frontmatter={note.data}>
+    <Content />
+</Note>

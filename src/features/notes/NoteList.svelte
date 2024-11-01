@@ -1,36 +1,36 @@
 <script lang="ts">
-	import type { Post } from "./collection";
+	import type { Note } from "./collection";
 	import { DateTime } from "luxon";
 
 	export let highlightNew: boolean = false;
-	export let posts: Post[] = [];
+	export let notes: Note[] = [];
 
-	const isNewPost = (post: Post) =>
+	const isNewNote = (note: Note) =>
 		DateTime.now().minus({ days: 40 }) <
-		DateTime.fromJSDate(post.data.publishedOn);
+		DateTime.fromJSDate(note.data.publishedOn);
 
-	const isDraft = (post: Post) => !post.data.publishedOn;
+	const isDraft = (note: Note) => !note.data.publishedOn;
 
-	const getPublishedDate = (post: Post) =>
-		post.data.publishedOn?.toLocaleDateString("en-US", {
+	const getPublishedDate = (note: Note) =>
+		note.data.publishedOn?.toLocaleDateString("en-US", {
 			timeZone: "UTC",
 			year: "numeric",
 			month: "long",
 		}) ?? "";
 </script>
 
-{#if 0 < posts.length}
+{#if 0 < notes.length}
 	<ul>
-		{#each posts as post}
+		{#each notes as note}
 			<li>
-				<a href={`/posts/${post.slug}`}>
-					<span class="title">{post.data.title}</span>
+				<a href={`/notes/${note.slug}`}>
+					<span class="title">{note.data.title}</span>
 					<span
-						class:new={highlightNew && isNewPost(post)}
-						class:draft={isDraft(post)}
+						class:new={highlightNew && isNewNote(note)}
+						class:draft={isDraft(note)}
 						class="date"
 					>
-						{getPublishedDate(post)}
+						{getPublishedDate(note)}
 					</span>
 				</a>
 			</li>
