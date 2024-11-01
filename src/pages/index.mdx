@@ -1,6 +1,6 @@
 import ProjectList from "../features/projects/ProjectList.svelte";
-import PostList from "../features/posts/PostList.svelte";
-import { getPosts } from "../features/posts/collection";
+import NoteList from "../features/notes/NoteList.svelte";
+import { getNotes } from "../features/notes/collection";
 import ButtonLink from "../controls/ButtonLink.svelte";
 import Hero from "../controls/Hero.svelte";
 import Root from "../layouts/Root.astro";
@@ -11,17 +11,17 @@ import Row from "../controls/Row.svelte";
 		I'm a software developer who works on open source projects and
 		occasionally writes articles and videos about technical topics.
 		
-		Stick around and check out my [posts](/posts) or learn more
+		Stick around and check out my [notes](/notes) or learn more
 		[about me](/about).
 	</Hero>
 
 	<Row>
-		<h2>Posts</h2>
-		<ButtonLink href="/posts">All posts</ButtonLink>
+		<h2>Notes</h2>
+		<ButtonLink href="/notes">All notes</ButtonLink>
 	</Row>
 	
-	<PostList
-		posts={await getPosts({
+	<NoteList
+		notes={await getNotes({
 			includeDrafts: import.meta.env.DEV,
 			limit: 10,
 		})}

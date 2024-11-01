@@ -1,5 +1,5 @@
 ---
-import PostHeader from "../features/posts/PostHeader.svelte";
+import NoteHeader from "../features/notes/NoteHeader.svelte";
 import Root from "./Root.astro";
 
 const { frontmatter } = Astro.props;
@@ -7,7 +7,7 @@ const { frontmatter } = Astro.props;
 
 <Root title={`${frontmatter.title} - Isaac Corbrey`}>
     <article>
-        <PostHeader
+        <NoteHeader
             publishedOn={frontmatter.publishedOn}
             title={frontmatter.title}
             tags={frontmatter.tags}

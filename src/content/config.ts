@@ -1,9 +1,9 @@
-import { postSchema } from '../features/posts/collection';
+import { noteSchema } from '../features/notes/collection';
 import { defineCollection } from "astro:content";
 
 export const collections = {
-	posts: defineCollection({
-		schema: postSchema,
+	notes: defineCollection({
+		schema: noteSchema,
 		type: 'content',
 	}),
 };
