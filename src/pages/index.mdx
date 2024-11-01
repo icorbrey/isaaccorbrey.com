@@ -1,10 +1,10 @@
-import ProjectList from "../components/ProjectList.svelte";
-import ButtonLink from "../components/ButtonLink.svelte";
-import PostList from "../components/PostList.svelte";
-import Hero from "../components/Hero.svelte";
-import Row from "../components/Row.svelte";
+import { getMostRecentPosts } from "../features/posts/collection";
+import ProjectList from "../features/projects/ProjectList.svelte";
+import PostList from "../features/posts/PostList.svelte";
+import ButtonLink from "../controls/ButtonLink.svelte";
+import Hero from "../controls/Hero.svelte";
 import Root from "../layouts/Root.astro";
-import { posts } from "../data/posts";
+import Row from "../controls/Row.svelte";
 
 <Root title="Isaac Corbrey">
 	<Hero title="Hey! I'm Isaac">
@@ -19,7 +19,7 @@ import { posts } from "../data/posts";
 		<h2>Posts</h2>
 		<ButtonLink href="/posts">All posts</ButtonLink>
 	</Row>
-	<PostList posts={await posts.getMostRecent(10)} />
+	<PostList posts={await getMostRecentPosts(10)} />
 
 	<Row>
 		<h2>Projects</h2>
