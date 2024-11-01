@@ -2,12 +2,10 @@
 import Post from "../../layouts/Post.astro";
 import { getEntry } from "astro:content";
 
-const { params, redirect } = Astro;
+const post = await getEntry("posts", Astro.params.slug!);
 
-const post = await getEntry("posts", params.slug!);
-
-if (post === undefined) {
-    return redirect("/404");
+if (post === undefined || (import.meta.env.PROD && !post.data.publishedOn)) {
+    return Astro.redirect("/404");
 }
 
 const { Content } = await post.render();
