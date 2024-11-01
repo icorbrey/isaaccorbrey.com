@@ -1,7 +1,3 @@
-<script lang="ts">
-	import ScreenColumn from "./ScreenColumn.svelte";
-</script>
-
 <header>
 	<h1><a href="/">Isaac Corbrey</a></h1>
 	<ul>
@@ -40,7 +36,6 @@
 	}
 
 	a {
-		text-decoration: none;
 		color: var(--foreground-2);
 	}
 

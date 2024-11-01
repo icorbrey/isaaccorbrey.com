@@ -1,5 +1,6 @@
 ---
 import ScreenColumn from "../controls/ScreenColumn.svelte";
+import Footer from "../controls/Footer.svelte";
 import Header from "../controls/Header.svelte";
 import "../style/global.css";
 
@@ -30,6 +31,7 @@ const { title } = Astro.props;
 		<ScreenColumn>
 			<Header />
 			<slot />
+			<Footer />
 		</ScreenColumn>
 	</body>
 </html>
