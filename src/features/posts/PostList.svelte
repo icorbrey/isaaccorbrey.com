@@ -17,9 +17,6 @@
 			year: "numeric",
 			month: "long",
 		}) ?? "";
-
-	const recencyThreshold = DateTime.now().minus({ days: 40 });
-	const isNew = (post: Post) => recencyThreshold < post.data.publishedOn;
 </script>
 
 {#if 0 < posts.length}
