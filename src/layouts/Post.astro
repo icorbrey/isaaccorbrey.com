@@ -1,10 +1,17 @@
 ---
+import PostHeader from "../features/posts/PostHeader.svelte";
 import Root from "./Root.astro";
 
 const { frontmatter } = Astro.props;
 ---
 
 <Root title={`${frontmatter.title} - Isaac Corbrey`}>
-    <h2>{frontmatter.title}</h2>
-    <slot />
+    <article>
+        <PostHeader
+            publishedOn={frontmatter.publishedOn}
+            title={frontmatter.title}
+            tags={frontmatter.tags}
+        />
+        <slot />
+    </article>
 </Root>
