@@ -5,5 +5,5 @@ export const collections = {
 	posts: defineCollection({
 		schema: postSchema,
 		type: 'content',
-	})
+	}),
 };

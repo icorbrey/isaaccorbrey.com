@@ -6,7 +6,7 @@ const { params, redirect } = Astro;
 
 const post = await getEntry("posts", params.slug!);
 
-if (post === undefined) {
+if (post === undefined || (import.meta.env.PROD && !post.data.publishedOn)) {
     return redirect("/404");
 }
 

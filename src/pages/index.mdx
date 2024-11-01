@@ -1,4 +1,4 @@
-import { getMostRecentPosts } from "../features/posts/collection";
+import { getPosts } from "../features/posts/collection";
 import ProjectList from "../features/projects/ProjectList.svelte";
 import PostList from "../features/posts/PostList.svelte";
 import ButtonLink from "../controls/ButtonLink.svelte";
@@ -19,7 +19,14 @@ import Row from "../controls/Row.svelte";
 		<h2>Posts</h2>
 		<ButtonLink href="/posts">All posts</ButtonLink>
 	</Row>
-	<PostList posts={await getMostRecentPosts(10)} />
+	
+	<PostList
+		posts={await getPosts({
+			includeDrafts: import.meta.env.DEV,
+			limit: 10,
+		})}
+		highlightNew
+	/>
 
 	<Row>
 		<h2>Projects</h2>
