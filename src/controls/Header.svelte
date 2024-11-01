@@ -5,7 +5,7 @@
 <header>
 	<h1><a href="/">Isaac Corbrey</a></h1>
 	<ul>
-		<li><a href="/posts">Posts</a></li>
+		<li><a href="/notes">Notes</a></li>
 		<li><a href="/projects">Projects</a></li>
 		<li><a href="/about">About me</a></li>
 	</ul>
