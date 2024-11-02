@@ -27,6 +27,7 @@
 	--yellow-400: #ffcc00;
 	--green-400: #2acd41;
 	--cyan-400: #02c7be;
+	--blue-300: #1a85ff;
 	--blue-400: #027aff;
 	--blue-500: #0065d9;
 	--blue-600: #0056b8;
@@ -134,12 +135,12 @@ ol:not(:first-child),
 }
 
 a {
-	color: var(--blue-400);
+	color: var(--blue-300);
 	text-decoration: none;
 }
 
 a:hover {
-	color: var(--blue-500);
+	color: var(--blue-400);
 	text-decoration: underline;
 }
 
