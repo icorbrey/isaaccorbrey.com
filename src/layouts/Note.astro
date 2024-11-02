@@ -9,6 +9,7 @@ const { frontmatter } = Astro.props;
     <article>
         <NoteHeader
             publishedOn={frontmatter.publishedOn}
+            readingTime={frontmatter.readingTime}
             title={frontmatter.title}
             tags={frontmatter.tags}
         />

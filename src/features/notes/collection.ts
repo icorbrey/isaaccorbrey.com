@@ -16,7 +16,7 @@ type NotesQuery = {
 export const getNotes = async (query?: NotesQuery): Promise<Note[]> => {
 	let notes = await getCollection("notes");
 
-	notes.sort((a, b) =>
+	notes.sort((a: Note, b: Note) =>
 		!a.data.publishedOn && !b.data.publishedOn
 			// Drafts should be sorted by title
 			? a.data.title.localeCompare(b.data.title)
@@ -30,7 +30,7 @@ export const getNotes = async (query?: NotesQuery): Promise<Note[]> => {
 
 	if (!query?.includeDrafts) {
 		console.log(notes)
-		notes = notes.filter(p => !!p.data.publishedOn);
+		notes = notes.filter((note: Note) => !!note.data.publishedOn);
 	}
 
 	return !!query?.limit

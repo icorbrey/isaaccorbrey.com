@@ -1,10 +1,11 @@
 <script lang="ts">
     export let publishedOn: Date | undefined;
+    export let readingTime: string;
     export let tags: string[] = [];
     export let title: string;
 
     const dateText = !!publishedOn
-        ? `Published on ${publishedOn.toLocaleDateString("en-US", {
+        ? `Published on ${new Date(publishedOn).toLocaleDateString("en-US", {
               timeZone: "UTC",
               year: "numeric",
               day: "numeric",
@@ -20,7 +21,7 @@
             <li><a href={`/tags/${tag}`}>#{tag}</a></li>
         {/each}
     </ul>
-    <p>{dateText}</p>
+    <p>{dateText} &CenterDot; {readingTime}</p>
 </header>
 
 <style>
