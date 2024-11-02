@@ -10,4 +10,9 @@ export default defineConfig({
   integrations: [svelte(), mdx()],
   adapter: netlify(),
   output: 'server',
+  markdown: {
+    shikiConfig: {
+      wrap: true,
+    }
+  }
 });

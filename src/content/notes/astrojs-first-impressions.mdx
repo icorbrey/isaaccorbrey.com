@@ -1,6 +1,6 @@
 ---
 title: "Astro: First impressions"
-tags: [web-frameworks, astro, first-impressions]
+tags: [astro, first-impressions, web-frameworks]
 ---
 
 Hey all! This is the first post I've written in a while, and the first that'll
@@ -9,5 +9,56 @@ that I barely get anything from posting on Medium, and it's too gamified to
 really enjoy posting there anyway. Hopefully having something low-stress like
 this site will help me post more.
 
-I built this site using a relatively new framework called
-[Astro](https://astro.build), and so far I'm enjoying it a lot. 
+
+When I was first trying to get my personal site up and running, I was looking
+at frameworks like Gatsby or [Jekyll][jekyll]. However,
+[Gatsby looks like it's about dead][gatsby-dead] and I wasn't really looking to
+use GitHub pages for Jekyll, as I don't know Ruby and don't really want to
+learn. I came across a relatively new framework called [Astro][astro] in my
+search and after getting things how I like them, I'm enjoying using it quite a
+lot.
+
+## What I like
+
+### Content collections are really cool
+
+I really love Astro's content collections. Rather than have pages fully defined
+and routed like you normally might in a bespoke static site like this, you can
+place your content in a designated folder at `/src/content`. You keep different
+types of data in different folders, kinda like tables in a relational database,
+and this data can be markdown files or just plain data in YAML or JSON.
+
+If you're familiar with Obsidian's [Dataview][dataview] plugin, content
+collections allow you to interact with your content in a very similar manner.
+Astro bundles in a nice schema generation system called [Zod][zod] that lets
+you define the schema for your content's frontmatter (or data if it's not a
+markdown file). For example, here's the schema definition for this very note:
+
+```ts
+import { defineCollection, z } from "astro:content";
+
+export const collections = {
+    notes: defineCollection({
+        type: 'content',
+        schema: z.object({
+            tags: z.array(z.string()).default([]),
+            publishedOn: z.date().optional(),
+            title: z.string(),
+        }),
+    }),
+};
+```
+
+## What I don't like
+
+TK
+
+## Conclusion
+
+TK
+
+[astro]: https://astro.build
+[dataview]: https://blacksmithgu.github.io/obsidian-dataview
+[gatsby-dead]: https://github.com/gatsbyjs/gatsby/issues/38696
+[jekyll]: https://jekyllrb.com
+[zod]: https://zod.dev

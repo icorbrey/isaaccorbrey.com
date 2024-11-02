@@ -23,6 +23,7 @@
 	--ui-3: #595959;
 	--red-400: #ff3b11;
 	--orange-400: #ff9502;
+	--orange-500: #e68600;
 	--yellow-400: #ffcc00;
 	--green-400: #2acd41;
 	--cyan-400: #02c7be;
@@ -129,7 +130,7 @@ ul:not(:first-child),
 *:not(:first-child):has(> ul:first-child),
 ol:not(:first-child),
 *:not(:first-child):has(> ol:first-child) {
-	margin-top: 0.75rem;
+	margin-top: 1.25rem;
 }
 
 a {
@@ -140,4 +141,21 @@ a {
 a:hover {
 	color: var(--blue-500);
 	text-decoration: underline;
+}
+
+p code {
+	color: var(--orange-500);
+	font-size: 1.075rem;
+	word-wrap: normal;
+}
+
+.astro-code {
+	border-radius: 0.25rem;
+	padding: 1rem;
+
+	font-size: 1rem;
+}
+
+.astro-code:not(:first-child) {
+	margin-top: 1.5rem;
 }
