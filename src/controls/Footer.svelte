@@ -39,9 +39,12 @@
         display: flex;
         gap: 0.5rem;
 
+        padding-bottom: 1.5rem;
+        padding-top: 4rem;
         margin-top: auto;
-        padding: 1.5rem;
         width: 100%;
+
+        font-size: 1.25rem;
     }
 
     .text-links {
@@ -61,8 +64,8 @@
     }
 
     .icon-links {
+        justify-content: center;
         flex-flow: row wrap;
-        align-items: center;
         display: flex;
         gap: 0.45rem;
     }

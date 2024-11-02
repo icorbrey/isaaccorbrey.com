@@ -42,30 +42,20 @@
 
 <style>
 	ul {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		grid-auto-rows: auto;
-		column-gap: 1rem;
+		flex-flow: column nowrap;
+		display: flex;
+		gap: 1rem;
 
 		width: 100%;
 		padding: 0;
 	}
 
 	li {
-		display: contents;
 		list-style: none;
 	}
 
 	a {
-		display: contents;
-
 		font-size: 1.5rem;
-	}
-
-	.title {
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
 	}
 
 	a:hover .title {
@@ -73,7 +63,6 @@
 	}
 
 	.date {
-		justify-content: flex-end;
 		flex-flow: row nowrap;
 		align-items: center;
 		text-wrap: nowrap;
@@ -108,5 +97,33 @@
 	.new::after {
 		background-color: var(--orange-400);
 		content: "New!";
+	}
+
+	@media (min-width: 40rem) {
+		ul {
+			grid-template-columns: 1fr auto;
+			grid-auto-rows: auto;
+			column-gap: 1rem;
+			row-gap: 0rem;
+			display: grid;
+		}
+
+		li {
+			display: contents;
+		}
+
+		a {
+			display: contents;
+		}
+
+		.title {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.date {
+			justify-content: flex-end;
+		}
 	}
 </style>
