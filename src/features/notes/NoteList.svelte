@@ -87,9 +87,6 @@
 		border-radius: 0.3rem;
 	}
 
-	.draft {
-	}
-
 	.draft::after {
 		background-color: var(--foreground-2);
 		margin-top: 0.5rem;
