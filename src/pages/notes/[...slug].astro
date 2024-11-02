@@ -8,9 +8,14 @@ if (note === undefined || (import.meta.env.PROD && !note.data.publishedOn)) {
     return Astro.redirect("/404");
 }
 
-const { Content } = await note.render();
+const { Content, remarkPluginFrontmatter } = await note.render();
 ---
 
-<Note frontmatter={note.data}>
+<Note
+    frontmatter={{
+        ...note?.data,
+        ...remarkPluginFrontmatter,
+    }}
+>
     <Content />
 </Note>
