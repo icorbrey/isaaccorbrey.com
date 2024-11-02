@@ -1,5 +1,5 @@
 // @ts-check
-import { postReadingTime } from './plugins/post-reading-time.mjs';
+import { postReadingTime } from './src/remark-plugins/post-reading-time.mjs';
 import { defineConfig } from 'astro/config';
 import netlify from '@astrojs/netlify';
 import svelte from '@astrojs/svelte';
