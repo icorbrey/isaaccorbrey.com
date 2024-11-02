@@ -21,6 +21,7 @@
 		display: flex;
 		align-items: flex-start;
 
+		padding: 0rem 0.75rem;
 		max-width: 55rem;
 		width: 100%;
 	}
