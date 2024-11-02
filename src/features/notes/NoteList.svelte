@@ -55,6 +55,9 @@
 	}
 
 	a {
+		display: block;
+
+		text-decoration: none;
 		font-size: 1.5rem;
 	}
 
@@ -82,13 +85,17 @@
 
 		padding: 0.1rem 0.3rem;
 		border-radius: 0.3rem;
-		margin-left: 0.5rem;
+	}
+
+	.draft {
 	}
 
 	.draft::after {
 		background-color: var(--foreground-2);
+		margin-top: 0.5rem;
 		content: "Draft";
 	}
+
 	.new {
 		color: var(--orange-400);
 		font-weight: 500;
@@ -96,6 +103,7 @@
 
 	.new::after {
 		background-color: var(--orange-400);
+		margin-left: 0.5rem;
 		content: "New!";
 	}
 
