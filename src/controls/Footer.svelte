@@ -4,7 +4,7 @@
 
 <footer>
     <div class="text-links">
-        <a href="https://ko-fi.com">Buy me a coffee</a>
+        <a href="https://ko-fi.com/icorbrey">Buy me a coffee</a>
         &CenterDot;
         <a href="https://github.com/sponsors/icorbrey">Sponsor me</a>
     </div>
@@ -25,7 +25,7 @@
             text="YouTube"
         />
         <FooterIcon
-            href="https://bsky.app/@icorbrey"
+            href="https://bsky.app/profile/icorbrey.bsky.social"
             src="/logos/bluesky.svg"
             text="BlueSky"
         />
