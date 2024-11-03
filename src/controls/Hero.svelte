@@ -9,6 +9,12 @@
 
 <style>
 	div {
-		padding: 8rem 0rem;
+		padding: 4rem 0;
+	}
+
+	@media (min-width: 40rem) {
+		div {
+			padding: 8rem 0;
+		}
 	}
 </style>
