@@ -1,8 +1,8 @@
 ---
+import NoteList from "../../features/notes/NoteList.svelte";
 import { getNotes } from "../../features/notes/collection";
 import Hero from "../../controls/Hero.svelte";
 import Root from "../../layouts/Root.astro";
-import NoteList from "../../features/notes/NoteList.svelte";
 
 const notes = await getNotes({
     includeDrafts: import.meta.env.DEV,
@@ -15,7 +15,11 @@ const years = [...new Set(publishedNotes.map(n => n.data.publishedOn!.getUTCFull
 years.sort((a, b) => b - a)
 ---
 
-<Root title="Notes - Isaac Corbrey">
+<Root
+    description="My notes. I write whatever I want here."
+    title="Notes"
+    path="/notes"
+>
     <Hero title="Notes">
         <p>
             I write whatever I want here. Prepare for opinions, rants, passions,

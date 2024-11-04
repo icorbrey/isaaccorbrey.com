@@ -2,10 +2,28 @@
 import NoteHeader from "../features/notes/NoteHeader.svelte";
 import Root from "./Root.astro";
 
-const { frontmatter } = Astro.props;
+interface Props {
+    frontmatter: any;
+    slug: string;
+}
+
+const { frontmatter, slug } = Astro.props;
 ---
 
-<Root title={`${frontmatter.title} - Isaac Corbrey`}>
+<Root
+    description={frontmatter.description}
+    imageUrl={frontmatter.imageUrl}
+    title={frontmatter.title}
+    path={`/notes/${slug}`}
+    type="article"
+    properties={[
+        ["article:section", "Notes"],
+        ["article:tags", frontmatter.tags],
+        ...((frontmatter.publishedOn
+            ? [["article:published_time", frontmatter.publishedOn]]
+            : []) as [string, string][]),
+    ]}
+>
     <article>
         <NoteHeader
             publishedOn={frontmatter.publishedOn}
