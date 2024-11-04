@@ -5,10 +5,25 @@ import Header from "../controls/Header.svelte";
 import "../style/global.css";
 
 interface Props {
-	title: string;
+	properties?: [string, string][];
+	description: string;
+	imageUrl?: string;
+	title?: string;
+	path?: string;
+	type?: string;
 }
 
-const { title } = Astro.props;
+const imageUrl = Astro.props.imageUrl ?? "https://isaaccorbrey.com/profile.png";
+const description = Astro.props.description ?? "No description provided.";
+const permanentUrl = `https://isaaccorbrey.com${Astro.props.path ?? ""}`;
+const properties = Astro.props.properties ?? [];
+const type = Astro.props.type ?? "website";
+const title = Astro.props.title ?? "Home";
+const siteName = "Isaac Corbrey";
+
+console.log(properties);
+
+const htmlTitle = [Astro.props.title, siteName].filter(Boolean).join(" - ");
 ---
 
 <!doctype html>
@@ -25,7 +40,20 @@ const { title } = Astro.props;
 			rel="stylesheet"
 		/>
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{htmlTitle}</title>
+
+		<meta property="og:siteName" content={siteName} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={permanentUrl} />
+		<meta property="og:image" content={imageUrl} />
+
+		{
+			properties.map(([key, content]) => (
+				<meta property={"og:" + key} {content} />
+			))
+		}
 	</head>
 	<body>
 		<ScreenColumn>

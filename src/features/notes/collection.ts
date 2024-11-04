@@ -4,7 +4,9 @@ export type Note = CollectionEntry<"notes">;
 
 export const noteSchema = z.object({
 	tags: z.array(z.string()).default([]),
+	description: z.string().optional(),
 	publishedOn: z.date().optional(),
+	imageUrl: z.string().optional(),
 	title: z.string(),
 })
 

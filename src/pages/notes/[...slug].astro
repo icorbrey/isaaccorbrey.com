@@ -12,6 +12,7 @@ const { Content, remarkPluginFrontmatter } = await note.render();
 ---
 
 <Note
+    slug={Astro.params.slug!}
     frontmatter={{
         ...note?.data,
         ...remarkPluginFrontmatter,
