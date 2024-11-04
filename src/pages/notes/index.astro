@@ -1,0 +1,38 @@
+---
+import { getNotes } from "../../features/notes/collection";
+import Hero from "../../controls/Hero.svelte";
+import Root from "../../layouts/Root.astro";
+import NoteList from "../../features/notes/NoteList.svelte";
+
+const notes = await getNotes({
+    includeDrafts: import.meta.env.DEV,
+});
+
+const unpublishedNotes = notes.filter(n => !n.data.publishedOn);
+const publishedNotes = notes.filter(n => !!n.data.publishedOn);
+
+const years = [...new Set(publishedNotes.map(n => n.data.publishedOn!.getUTCFullYear()))]
+years.sort((a, b) => b - a)
+---
+
+<Root title="Notes - Isaac Corbrey">
+    <Hero title="Notes">
+        <p>
+            I write whatever I want here. Prepare for opinions, rants, passions,
+            and whatever else happens to pour out of my brain.
+        </p>
+    </Hero>
+
+    {0 < unpublishedNotes.length && (
+        <h2>Unpublished notes</h2>
+        <NoteList notes={unpublishedNotes} />
+    )}
+
+    {0 < years.length && years.map(year => (
+        <h2>{year}</h2>
+        <NoteList
+            notes={publishedNotes.filter(n => n.data.publishedOn!.getUTCFullYear() === year)}
+            highlightNew
+        />
+    ))}
+</Root>
