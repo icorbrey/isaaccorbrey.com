@@ -1,5 +1,6 @@
 ---
 import NoteHeader from "../features/notes/NoteHeader.svelte";
+import Comments from "../controls/Comments.svelte";
 import Root from "./Root.astro";
 
 interface Props {
@@ -32,5 +33,6 @@ const { frontmatter, slug } = Astro.props;
             tags={frontmatter.tags}
         />
         <slot />
+        <Comments />
     </article>
 </Root>
