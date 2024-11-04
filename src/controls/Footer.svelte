@@ -25,7 +25,7 @@
             text="YouTube"
         />
         <FooterIcon
-            href="https://bsky.app/profile/icorbrey.bsky.social"
+            href="https://bsky.app/profile/isaaccorbrey.com"
             src="/logos/bluesky.svg"
             text="BlueSky"
         />
