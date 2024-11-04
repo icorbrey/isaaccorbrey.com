@@ -23,6 +23,11 @@ years.sort((a, b) => b - a)
         </p>
     </Hero>
 
+    {notes.length === 0 && (
+        <h2>Looks like there's nothing here yet.</h2>
+        <p>Come back later to see what I've been cooking up!</p>
+    )}
+
     {0 < unpublishedNotes.length && (
         <h2>Unpublished notes</h2>
         <NoteList notes={unpublishedNotes} />
