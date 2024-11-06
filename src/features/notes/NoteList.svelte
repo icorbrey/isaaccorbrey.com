@@ -1,13 +1,14 @@
 <script lang="ts">
-	import type { Note } from "./collection";
+	import type { Note } from "./store";
 	import { DateTime } from "luxon";
 
 	export let highlightNew: boolean = false;
 	export let notes: Note[] = [];
 
 	const isNewNote = (note: Note) =>
+		highlightNew &&
 		DateTime.now().minus({ days: 40 }) <
-		DateTime.fromJSDate(note.data.publishedOn);
+			DateTime.fromJSDate(note.data.publishedOn!);
 
 	const isDraft = (note: Note) => !note.data.publishedOn;
 
@@ -26,8 +27,8 @@
 				<a href={`/notes/${note.slug}`}>
 					<span class="title">{note.data.title}</span>
 					<span
-						class:new={highlightNew && isNewNote(note)}
 						class:draft={isDraft(note)}
+						class:new={isNewNote(note)}
 						class="date"
 					>
 						{getPublishedDate(note)}

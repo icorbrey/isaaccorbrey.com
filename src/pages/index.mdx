@@ -1,7 +1,7 @@
 import ProjectList from "../features/projects/ProjectList.svelte";
 import NoteList from "../features/notes/NoteList.svelte";
-import { getNotes } from "../features/notes/collection";
 import ButtonLink from "../controls/ButtonLink.svelte";
+import { noteStore } from "../features/notes/store";
 import Hero from "../controls/Hero.svelte";
 import Root from "../layouts/Root.astro";
 import Row from "../controls/Row.svelte";
@@ -26,7 +26,7 @@ import Row from "../controls/Row.svelte";
 	</Row>
 	
 	<NoteList
-		notes={await getNotes({
+		notes={await noteStore.getRecent({
 			includeDrafts: import.meta.env.DEV,
 			limit: 10,
 		})}

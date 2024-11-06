@@ -1,22 +1,24 @@
 ---
+import { noteStore } from "../../features/notes/store";
 import Note from "../../layouts/Note.astro";
-import { getEntry } from "astro:content";
 
-const note = await getEntry("notes", Astro.params.slug!);
+const slug = Astro.params.slug!;
+const note = await noteStore.getSingle({
+    includeDrafts: import.meta.env.DEV,
+    slug,
+});
 
-if (note === undefined || (import.meta.env.PROD && !note.data.publishedOn)) {
-    return Astro.redirect("/404");
+if (!note) {
+    return Astro.rewrite("/404");
 }
 
 const { Content, remarkPluginFrontmatter } = await note.render();
+const frontmatter = {
+    ...note?.data,
+    ...remarkPluginFrontmatter,
+};
 ---
 
-<Note
-    slug={Astro.params.slug!}
-    frontmatter={{
-        ...note?.data,
-        ...remarkPluginFrontmatter,
-    }}
->
+<Note {slug} {frontmatter}>
     <Content />
 </Note>

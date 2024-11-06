@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Tag from "../tags/Tag.svelte";
+
     export let publishedOn: Date | undefined;
     export let readingTime: string;
     export let tags: string[] = [];
@@ -18,7 +20,7 @@
     <h1>{title}</h1>
     <ul class="tags">
         {#each tags as tag}
-            <li><a href={`/tags/${tag}`}>#{tag}</a></li>
+            <li><Tag href={`/tags/${tag}`}>{tag}</Tag></li>
         {/each}
     </ul>
     <p>{dateText} &CenterDot; {readingTime}</p>
@@ -52,18 +54,5 @@
 
     li:not(:first-child) {
         margin-left: 0.25rem;
-    }
-
-    .tags li a {
-        text-transform: uppercase;
-        letter-spacing: 0.0625rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-
-        border: solid 0.1rem var(--foreground-4);
-        color: var(--foreground-3);
-
-        padding: 0.125rem 0.5rem;
-        border-radius: 1rem;
     }
 </style>

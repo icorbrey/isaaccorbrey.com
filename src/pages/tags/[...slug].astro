@@ -1,0 +1,30 @@
+---
+import TagHeader from "../../features/tags/TagHeader.svelte";
+import NoteList from "../../features/notes/NoteList.svelte";
+import ButtonLink from "../../controls/ButtonLink.svelte";
+import { noteStore } from "../../features/notes/store";
+import { tagStore } from "../../features/tags/store";
+import Root from "../../layouts/Root.astro";
+import Row from "../../controls/Row.svelte";
+
+const slug = Astro.params.slug!;
+
+const tag = await tagStore.getSingle(slug);
+const notes = await noteStore.getTagged({
+    includeDrafts: import.meta.env.DEV,
+    tags: [slug],
+});
+
+const title = `#${slug}`;
+const description = tag?.data?.description;
+---
+
+<Root {title} {description} path={`/tags/${slug}`}>
+    <TagHeader tag={slug} {description} />
+
+    <Row>
+        <h2>Notes</h2>
+        <ButtonLink href="/notes">All notes</ButtonLink>
+    </Row>
+    <NoteList highlightNew {notes} />
+</Root>

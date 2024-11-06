@@ -1,0 +1,5 @@
+description: |
+  Astro is a web framework for fast, content-focused sites that ships zero
+  JavaScript by default for optimal performance. It supports integrating
+  components from frameworks like React, Vue, and Svelte, enabling dynamic
+  content only where necessary.
