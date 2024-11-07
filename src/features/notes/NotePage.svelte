@@ -1,9 +1,11 @@
 <script lang="ts">
-	import Comments from '../../controls/Comments.svelte';
-	import type { NoteFrontmatter } from './store';
-	import NoteHeader from './NoteHeader.svelte';
+	import Comments from "../../controls/Comments.svelte";
+	import type { NoteFrontmatter } from "./store";
+	import NoteHeader from "./NoteHeader.svelte";
+	import type { Tag } from "../tags/store";
 
 	export let frontmatter: NoteFrontmatter;
+	export let tagDescriptions: Tag[];
 </script>
 
 <article>
@@ -12,6 +14,7 @@
 		readingTime={frontmatter.readingTime}
 		title={frontmatter.title}
 		tags={frontmatter.tags}
+		{tagDescriptions}
 	/>
 	<slot />
 	<Comments />

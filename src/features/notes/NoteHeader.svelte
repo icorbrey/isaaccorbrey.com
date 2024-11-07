@@ -1,26 +1,36 @@
 <script lang="ts">
-	import Tag from '../tags/Tag.svelte';
+	import type { Tag as TagType } from "../tags/store";
+	import Tag from "../tags/Tag.svelte";
 
 	export let publishedOn: Date | undefined;
+	export let tagDescriptions: TagType[];
 	export let readingTime: string;
 	export let tags: string[] = [];
 	export let title: string;
 
 	const dateText = !!publishedOn
-		? `Published on ${new Date(publishedOn).toLocaleDateString('en-US', {
-				timeZone: 'UTC',
-				year: 'numeric',
-				day: 'numeric',
-				month: 'long',
+		? `Published on ${new Date(publishedOn).toLocaleDateString("en-US", {
+				timeZone: "UTC",
+				year: "numeric",
+				day: "numeric",
+				month: "long",
 			})}`
-		: 'Draft';
+		: "Draft";
 </script>
 
 <header>
 	<h1>{title}</h1>
 	<ul class="tags">
 		{#each tags as tag}
-			<li><Tag href={`/tags/${tag}`}>{tag}</Tag></li>
+			<li>
+				<Tag
+					description={tagDescriptions.find((t) => t.id === tag)?.data
+						?.description}
+					href={`/tags/${tag}`}
+				>
+					{tag}
+				</Tag>
+			</li>
 		{/each}
 	</ul>
 	<p aria-hidden="true">{dateText} &CenterDot; {readingTime}</p>

@@ -33,6 +33,9 @@
 	--blue-600: #0056b8;
 	--purple-400: #b051de;
 	--pink-400: #ff2e55;
+
+	--font-code: 'Fira Code', monospace;
+	--font-text: 'Afacad Flux', sans-serif;
 }
 
 html,
@@ -47,7 +50,7 @@ body {
 	background: var(--background-1);
 	isolation: isolate;
 
-	font-family: 'Afacad Flux', sans-serif;
+	font-family: var(--font-text);
 	-webkit-font-smoothing: antialiased;
 	line-height: 1.5;
 }
@@ -144,9 +147,37 @@ a:hover {
 	text-decoration: underline;
 }
 
+code {
+	font-family: var(--font-code);
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code {
+	color: var(--orange-400);
+	word-wrap: normal;
+}
+
+h1 code {
+	font-size: 2.5rem;
+}
+
+h2 code {
+	font-size: 1.9rem;
+}
+
+h3 code {
+	font-size: 1.5rem;
+}
+
+h4 code {
+	font-size: 1.2rem;
+}
+
 p code {
 	color: var(--orange-500);
-	font-size: 1.075rem;
+	font-size: 1.1rem;
 	word-wrap: normal;
 }
 
