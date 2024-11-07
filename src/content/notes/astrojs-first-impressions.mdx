@@ -1,6 +1,6 @@
 ---
 title: "Astro: First impressions"
-tags: [astro, first-impressions, web-frameworks]
+tags: [astro, first-impressions, web-frameworks, zod]
 description: |
     My first impressions of Astro, a web framework for content-driven websites.
 ---
@@ -49,6 +49,73 @@ export const collections = {
     }),
 };
 ```
+
+### Zod is a lot handier than I expected
+
+I'm writing everything in this project in TypeScript, so having static types
+for everything is nice. Normally, I would find myself just writing types for
+everything, like for example a query to get notes:
+
+```ts
+type GetRecentNotesQuery = {
+	includeDrafts?: boolean;
+	limit?: number;
+}
+```
+
+I'd then use this as the type of the query parameter in my function, inserting
+any defaults as needed:
+
+```ts
+export const getRecentNotes = async (query?: GetRecentNotesQuery) => {
+	const includeDrafts = query?.includeDrafts ?? false;
+	const limit = query?.limit ?? 10;
+
+	// ...
+}
+```
+
+However, this can get kind of tedious, as you could potentially forget to set
+default values for certain properties. Instead, I've been using Zod for
+declaring this, as I can do something really special:
+
+```ts
+const recentNotesQuery = z.object({
+	includeDrafts: z.boolean().default(false),
+	limit: z.number().default(),
+});
+
+export const getRecentNotes = async (_query?: z.input<typeof recentNotesQuery>) => {
+	const query = recentNotesQuery.parse(_query);
+
+	// ...
+}
+```
+
+That's right. I can define my static type, runtime validation, and default
+values in one statement. Isn't that neat?! I ended up writing a wrapping
+function that makes it easier to write this stuff over and over again:
+
+```ts
+export const buildQuery = <S extends BaseSchema, T>(
+	schema: S,
+	fn: (query: z.infer<S>) => Promise<T>
+) => {
+    return (query: z.input<S>) => fn(schema.parse(query))
+}
+```
+
+This just takes in the schema I built earlier and a function that expects a
+validated query as input. With this, `getRecentNotes` becomes something simple:
+
+```ts
+export const getRecentNotes = buildQuery(recentNotesQuery, async (query) => {
+	// ...
+})
+```
+
+I get to use this pattern everywhere, don't have to think about validation, and
+I am in love. I will probably be using Zod in other projects from now on.
 
 ## What I don't like
 

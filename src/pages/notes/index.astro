@@ -1,47 +1,17 @@
 ---
-import NoteList from "../../features/notes/NoteList.svelte";
-import { getNotes } from "../../features/notes/schema";
-import Hero from "../../controls/Hero.svelte";
+import NoteListPage from "../../features/notes/NoteListPage.svelte";
+import { noteStore } from "../../features/notes/store";
 import Root from "../../layouts/Root.astro";
 
-const notes = await getNotes({
-    includeDrafts: import.meta.env.DEV,
+const notesByYear = await noteStore.getByYear({
+	includeDrafts: import.meta.env.DEV,
 });
-
-const unpublishedNotes = notes.filter(n => !n.data.publishedOn);
-const publishedNotes = notes.filter(n => !!n.data.publishedOn);
-
-const years = [...new Set(publishedNotes.map(n => n.data.publishedOn!.getUTCFullYear()))]
-years.sort((a, b) => b - a)
 ---
 
 <Root
-    description="My notes. I write whatever I want here."
-    title="Notes"
-    path="/notes"
+	description="My notes. I write whatever I want here."
+	title="Notes"
+	path="/notes"
 >
-    <Hero title="Notes">
-        <p>
-            I write whatever I want here. Prepare for opinions, rants, passions,
-            and whatever else happens to pour out of my brain.
-        </p>
-    </Hero>
-
-    {notes.length === 0 && (
-        <h2>Looks like there's nothing here yet.</h2>
-        <p>Come back later to see what I've been cooking up!</p>
-    )}
-
-    {0 < unpublishedNotes.length && (
-        <h2>Unpublished notes</h2>
-        <NoteList notes={unpublishedNotes} />
-    )}
-
-    {0 < years.length && years.map(year => (
-        <h2>{year}</h2>
-        <NoteList
-            notes={publishedNotes.filter(n => n.data.publishedOn!.getUTCFullYear() === year)}
-            highlightNew
-        />
-    ))}
+	<NoteListPage {notesByYear} />
 </Root>
