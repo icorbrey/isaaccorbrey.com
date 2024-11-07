@@ -1,12 +1,13 @@
 import ProjectList from "../features/projects/ProjectList.svelte";
 import NoteList from "../features/notes/NoteList.svelte";
-import { getNotes } from "../features/notes/collection";
 import ButtonLink from "../controls/ButtonLink.svelte";
+import { noteStore } from "../features/notes/store";
 import Hero from "../controls/Hero.svelte";
 import Root from "../layouts/Root.astro";
 import Row from "../controls/Row.svelte";
 
 <Root
+	title="Hey! I'm Isaac"
 	description={
 		"I'm a software developer who works on open source projects and "
 		+ "occasionally writes articles and videos about technical topics."
@@ -26,7 +27,7 @@ import Row from "../controls/Row.svelte";
 	</Row>
 	
 	<NoteList
-		notes={await getNotes({
+		notes={await noteStore.getRecent({
 			includeDrafts: import.meta.env.DEV,
 			limit: 10,
 		})}

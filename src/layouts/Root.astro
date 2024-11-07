@@ -1,27 +1,28 @@
 ---
-import ScreenColumn from "../controls/ScreenColumn.svelte";
-import Footer from "../controls/Footer.svelte";
-import Header from "../controls/Header.svelte";
+import { articleSchema } from "../utils/openGraph";
+import Layout from "../controls/Layout.svelte";
+import { z } from "astro:content";
 import "../style/global.css";
 
-interface Props {
-	properties?: [string, string][];
-	description: string;
-	imageUrl?: string;
-	title?: string;
-	path?: string;
-	type?: string;
-}
+const layoutProps = z.object({
+	image: z.string().default("https://isaaccorbrey.com/profile.png"),
+	properties: articleSchema.default({}),
+	type: z.string().default("website"),
+	title: z.string(),
+	path: z
+		.string()
+		.transform((p) => `https://isaaccorbrey.com${p}`)
+		.default(""),
+	description: z
+		.string()
+		.transform((d) => d.trim())
+		.optional(),
+});
 
-const imageUrl = Astro.props.imageUrl ?? "https://isaaccorbrey.com/profile.png";
-const description = Astro.props.description ?? "No description provided.";
-const permanentUrl = `https://isaaccorbrey.com${Astro.props.path ?? ""}`;
-const properties = Astro.props.properties ?? [];
-const type = Astro.props.type ?? "website";
-const title = Astro.props.title ?? "Hey! I'm Isaac";
+type Props = z.input<typeof layoutProps>;
+const props = layoutProps.parse(Astro.props);
+
 const siteName = "Isaac Corbrey";
-
-const htmlTitle = [Astro.props.title, siteName].filter(Boolean).join(" - ");
 ---
 
 <!doctype html>
@@ -38,26 +39,33 @@ const htmlTitle = [Astro.props.title, siteName].filter(Boolean).join(" - ");
 			rel="stylesheet"
 		/>
 		<meta name="generator" content={Astro.generator} />
-		<title>{htmlTitle}</title>
 
+		<title>{[props.title, siteName].filter(Boolean).join(" - ")}</title>
+
+		<meta property="og:url" content={props.path} />
 		<meta property="og:site_name" content={siteName} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:type" content={type} />
-		<meta property="og:url" content={permanentUrl} />
-		<meta property="og:image" content={imageUrl} />
-
+		<meta property="og:title" content={props.title} />
 		{
-			properties.map(([key, content]) => (
-				<meta property={"og:" + key} {content} />
-			))
+			props.description && (
+				<meta property="og:description" content={props.description} />
+			)
+		}
+		<meta property="og:image" content={props.image} />
+		<meta property="og:type" content={props.type} />
+		{
+			Object.entries(props.properties).map(([key, content]) =>
+				[]
+					.concat(content as any)
+					.filter(Boolean)
+					.map((content) => (
+						<meta property={`og:${key}`} {content} />
+					)),
+			)
 		}
 	</head>
 	<body>
-		<ScreenColumn>
-			<Header />
+		<Layout>
 			<slot />
-			<Footer />
-		</ScreenColumn>
+		</Layout>
 	</body>
 </html>

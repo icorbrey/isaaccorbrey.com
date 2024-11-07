@@ -1,4 +1,5 @@
-import { noteSchema } from '../features/notes/collection';
+import { noteSchema } from '../features/notes/store';
+import { tagSchema } from '../features/tags/store';
 import { defineCollection } from "astro:content";
 
 export const collections = {
@@ -6,4 +7,8 @@ export const collections = {
 		schema: noteSchema,
 		type: 'content',
 	}),
+	tags: defineCollection({
+		schema: tagSchema,
+		type: 'data',
+	})
 };
