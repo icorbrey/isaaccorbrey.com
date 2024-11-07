@@ -8,7 +8,7 @@ const layoutProps = z.object({
 	image: z.string().default("https://isaaccorbrey.com/profile.png"),
 	properties: articleSchema.default({}),
 	type: z.string().default("website"),
-	title: z.string(),
+	title: z.string().optional(),
 	path: z
 		.string()
 		.transform((p) => `https://isaaccorbrey.com${p}`)
@@ -22,6 +22,7 @@ const layoutProps = z.object({
 type Props = z.input<typeof layoutProps>;
 const props = layoutProps.parse(Astro.props);
 
+const defaultOgTitle = "Hey! I'm Isaac";
 const siteName = "Isaac Corbrey";
 ---
 
@@ -44,7 +45,7 @@ const siteName = "Isaac Corbrey";
 
 		<meta property="og:url" content={props.path} />
 		<meta property="og:site_name" content={siteName} />
-		<meta property="og:title" content={props.title} />
+		<meta property="og:title" content={props.title ?? defaultOgTitle} />
 		{
 			props.description && (
 				<meta property="og:description" content={props.description} />
