@@ -30,7 +30,6 @@ const siteName = "Isaac Corbrey";
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 
@@ -51,6 +50,7 @@ const siteName = "Isaac Corbrey";
 		<meta property="og:title" content={props.title ?? defaultOgTitle} />
 		{
 			props.description && (
+				<meta name="description" content={props.description} />
 				<meta property="og:description" content={props.description} />
 			)
 		}
