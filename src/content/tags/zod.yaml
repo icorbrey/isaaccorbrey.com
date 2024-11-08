@@ -1,0 +1,4 @@
+description: |
+  Zod is a TypeScript-first schema validation library that lets developers
+  define and validate data structures in a concise, type-safe manner. It offers
+  a simple API for creating schemas to parse and validate data at runtime.

@@ -1,6 +1,7 @@
 ---
 import { noteStore, type NoteFrontmatter } from "../../features/notes/store";
 import NotePage from "../../features/notes/NotePage.svelte";
+import { tagStore } from "../../features/tags/store";
 import Root from "../../layouts/Root.astro";
 
 const slug = Astro.params.slug!;
@@ -19,6 +20,10 @@ const frontmatter: NoteFrontmatter = {
 	readingTime: remarkPluginFrontmatter.readingTime,
 	...note?.data,
 };
+
+const tagDescriptions = (await tagStore.getAll()).filter(({ id }) =>
+	frontmatter.tags.includes(id),
+);
 ---
 
 <Root
@@ -33,7 +38,7 @@ const frontmatter: NoteFrontmatter = {
 		"article:section": "Notes",
 	}}
 >
-	<NotePage {frontmatter}>
+	<NotePage {frontmatter} {tagDescriptions}>
 		<Content />
 	</NotePage>
 </Root>

@@ -1,10 +1,12 @@
 <script lang="ts">
+    export let description: string =
+        "This tag does not yet have a description.";
     export let href: string | undefined = undefined;
     export let large: boolean = false;
 </script>
 
 {#if !!href}
-    <a {href} class:large>
+    <a {href} title={description} class:large>
         #<slot />
     </a>
 {:else}
