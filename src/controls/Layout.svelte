@@ -1,11 +1,11 @@
 <script>
-	import ScreenColumn from './ScreenColumn.svelte';
-	import Footer from './Footer.svelte';
-	import Header from './Header.svelte';
+	import LayoutFooter from "./LayoutFooter.svelte";
+	import LayoutHeader from "./LayoutHeader.svelte";
+	import ScreenColumn from "./ScreenColumn.svelte";
 </script>
 
 <ScreenColumn>
-	<Header />
+	<LayoutHeader />
 	<slot />
-	<Footer />
+	<LayoutFooter />
 </ScreenColumn>

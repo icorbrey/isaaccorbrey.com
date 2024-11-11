@@ -1,21 +1,13 @@
 <script lang="ts">
-	import type { Tag as TagType } from "../tags/store";
-	import Tag from "../tags/Tag.svelte";
+	import TagPill from "../features/tags/TagPill.svelte";
+	import { getPublishedOnText } from "../utils/dates";
+	import type { Tag } from "../features/tags/store";
 
 	export let publishedOn: Date | undefined;
-	export let tagDescriptions: TagType[];
+	export let tagDescriptions: Tag[];
 	export let readingTime: string;
 	export let tags: string[] = [];
 	export let title: string;
-
-	const dateText = !!publishedOn
-		? `Published on ${new Date(publishedOn).toLocaleDateString("en-US", {
-				timeZone: "UTC",
-				year: "numeric",
-				day: "numeric",
-				month: "long",
-			})}`
-		: "Draft";
 </script>
 
 <header>
@@ -23,17 +15,21 @@
 	<ul class="tags">
 		{#each tags as tag}
 			<li>
-				<Tag
+				<TagPill
 					description={tagDescriptions.find((t) => t.id === tag)?.data
 						?.description}
 					href={`/tags/${tag}`}
 				>
 					{tag}
-				</Tag>
+				</TagPill>
 			</li>
 		{/each}
 	</ul>
-	<p aria-hidden="true">{dateText} &CenterDot; {readingTime}</p>
+	<p aria-hidden="true">
+		{getPublishedOnText(publishedOn)}
+		&CenterDot;
+		{readingTime}
+	</p>
 </header>
 
 <style>

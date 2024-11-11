@@ -21,9 +21,7 @@ const frontmatter: NoteFrontmatter = {
 	...note?.data,
 };
 
-const tagDescriptions = (await tagStore.getAll()).filter(({ id }) =>
-	frontmatter.tags.includes(id),
-);
+const tagDescriptions = await tagStore.getMultiple(frontmatter.tags);
 ---
 
 <Root

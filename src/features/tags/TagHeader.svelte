@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Tag from "./Tag.svelte";
+    import Tag from "./TagPill.svelte";
 
     export let tag: string;
     export let description: string | undefined;

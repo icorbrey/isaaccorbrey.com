@@ -120,4 +120,5 @@ export const noteStore = {
 	getRecent: getRecentNotes,
 	getTagged: getTaggedNotes,
 	getSingle: getSingleNote,
+	getAll: getAllNotes,
 }

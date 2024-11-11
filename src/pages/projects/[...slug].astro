@@ -1,0 +1,44 @@
+---
+import { tagStore } from "../../features/tags/store";
+import Root from "../../layouts/Root.astro";
+import {
+    type ProjectFrontmatter,
+    projectStore,
+} from "../../features/projects/store";
+import ProjectPage from "../../features/projects/ProjectPage.svelte";
+
+const slug = Astro.params.slug!;
+const project = await projectStore.getSingle({
+    includeDrafts: import.meta.env.DEV,
+    slug,
+});
+
+if (!project) {
+    return Astro.rewrite("/404");
+}
+
+const { Content, remarkPluginFrontmatter } = await project.render();
+
+const frontmatter: ProjectFrontmatter = {
+    readingTime: remarkPluginFrontmatter.readingTime,
+    ...project.data,
+};
+
+const tagDescriptions = await tagStore.getMultiple(frontmatter.tags);
+---
+
+<Root
+    description={frontmatter.description}
+    path={`/projects/${slug}`}
+    title={frontmatter.title}
+    type="article"
+    properties={{
+        "article:published_time": frontmatter.publishedOn,
+        "article:tag": frontmatter.tags,
+        "article:section": "Projects",
+    }}
+>
+    <ProjectPage {frontmatter} {tagDescriptions}>
+        <Content />
+    </ProjectPage>
+</Root>
