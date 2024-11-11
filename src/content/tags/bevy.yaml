@@ -1,0 +1,4 @@
+description: |
+  Bevy is an open-source game engine built in Rust that incorporates an
+  Entity-Component-System (ECS) architecture, enabling efficient and modular
+  game development.
