@@ -1,0 +1,7 @@
+description: |
+  Rust is a fast, memory-safe programming language focused on performance and
+  concurrency. It ensures safety without a garbage collector by enforcing
+  ownership and borrowing rules at compile time. Ideal for systems programming,
+  Rust prevents common errors like null pointer dereferences and race
+  conditions.
+
