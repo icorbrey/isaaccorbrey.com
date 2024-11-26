@@ -1,6 +1,10 @@
-<script lang="ts">
-	export let title: string;
-</script>
+---
+type Props = {
+	title: string;
+};
+
+const { title } = Astro.props;
+---
 
 <div>
 	<h1>{title}</h1>

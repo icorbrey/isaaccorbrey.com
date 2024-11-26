@@ -1,6 +1,6 @@
 ---
-import NoteListPage from "../../features/notes/NoteListPage.svelte";
-import { noteStore } from "../../features/notes/store";
+import NoteListPage from "../../components/notes/NoteListPage.astro";
+import { noteStore } from "../../data/notes";
 import Root from "../../layouts/Root.astro";
 
 const notesByYear = await noteStore.getByYear({

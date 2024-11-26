@@ -1,0 +1,82 @@
+---
+import type { Tag as TagType } from "../../data/tags";
+import Tag from "../tags/Tag.astro";
+
+type Props = {
+	tagDescriptions: TagType[];
+	readingTime: string;
+	publishedOn?: Date;
+	tags: string[];
+	title: string;
+};
+
+const {
+	publishedOn,
+	tagDescriptions,
+	readingTime,
+	tags = [],
+	title,
+} = Astro.props;
+
+const dateText = !!publishedOn
+	? `Published on ${new Date(publishedOn).toLocaleDateString("en-US", {
+			timeZone: "UTC",
+			year: "numeric",
+			day: "numeric",
+			month: "long",
+		})}`
+	: "Draft";
+---
+
+<header>
+	<h1>{title}</h1>
+	<ul class="tags">
+		{
+			tags.map((tag) => (
+				<li>
+					<Tag
+						description={
+							tagDescriptions.find((t) => t.id === tag)?.data
+								?.description
+						}
+						href={`/tags/${tag}`}
+					>
+						{tag}
+					</Tag>
+				</li>
+			))
+		}
+	</ul>
+	<p aria-hidden="true">{dateText} &CenterDot; {readingTime}</p>
+</header>
+
+<style>
+	header {
+		padding: 4rem 0rem;
+	}
+
+	h1 {
+		line-height: 3rem;
+	}
+
+	p {
+		font-size: 1.2rem;
+		margin-top: 1rem;
+	}
+
+	.tags {
+		flex-flow: row wrap;
+		display: flex;
+
+		padding: 0;
+		margin: 0;
+	}
+
+	li {
+		list-style: none;
+	}
+
+	li:not(:first-child) {
+		margin-left: 0.25rem;
+	}
+</style>

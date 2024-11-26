@@ -1,5 +1,5 @@
 import { getCollection, getEntry, z, type CollectionEntry } from "astro:content";
-import { buildQuery } from "../../utils/query";
+import { buildQuery } from "../utils/query";
 
 export const noteSchema = z.object({
 	tags: z.array(z.string()).default([]),

@@ -1,0 +1,29 @@
+---
+import Tag from "./Tag.astro";
+
+type Props = {
+	description?: string;
+	tag: string;
+};
+
+const { description, tag } = Astro.props;
+---
+
+<header>
+	<h1><Tag large>{tag}</Tag></h1>
+	{
+		!!description ? (
+			<p>{description}</p>
+		) : (
+			<p>
+				<i>No description yet.</i>
+			</p>
+		)
+	}
+</header>
+
+<style>
+	header {
+		padding: 4rem 0rem;
+	}
+</style>

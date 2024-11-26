@@ -1,0 +1,23 @@
+---
+import ButtonLink from "../controls/ButtonLink.astro";
+import NoteList from "../notes/NoteList.astro";
+import type { Note } from "../../data/notes";
+import TagHeader from "./TagHeader.astro";
+import Row from "../controls/Row.astro";
+
+type Props = {
+	description?: string;
+	notes?: Note[];
+	tag: string;
+};
+
+const { description, notes = [], tag } = Astro.props;
+---
+
+<TagHeader {tag} {description} />
+
+<Row>
+	<h2>Notes</h2>
+	<ButtonLink href="/notes">All notes</ButtonLink>
+</Row>
+<NoteList highlightNew {notes} />
