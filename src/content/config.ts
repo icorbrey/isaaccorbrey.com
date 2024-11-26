@@ -1,6 +1,6 @@
-import { noteSchema } from '../data/notes';
-import { tagSchema } from '../data/tags';
 import { defineCollection } from "astro:content";
+import { noteSchema } from 'stores/notes';
+import { tagSchema } from 'stores/tags';
 
 export const collections = {
 	notes: defineCollection({

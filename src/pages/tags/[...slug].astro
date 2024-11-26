@@ -1,8 +1,8 @@
 ---
-import TagListing from "../../components/tags/TagListing.astro";
-import { noteStore } from "../../data/notes";
-import Root from "../../layouts/Root.astro";
-import { tagStore } from "../../data/tags";
+import TagListing from "components/tags/TagListing.astro";
+import { noteStore } from "stores/notes";
+import { tagStore } from "stores/tags";
+import Root from "layouts/Root.astro";
 
 const slug = Astro.params.slug!;
 

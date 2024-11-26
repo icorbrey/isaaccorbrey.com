@@ -7,15 +7,21 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [svelte(), mdx()],
-  adapter: netlify(),
-  output: 'server',
-  markdown: {
-    remarkPlugins: [
-      postReadingTime,
-    ],
-    shikiConfig: {
-      wrap: true,
-    }
-  }
+	site: 'https://isaaccorbrey.com',
+	integrations: [svelte(), mdx()],
+	adapter: netlify(),
+	output: 'server',
+	redirects: {
+		'/n/[...slug]': '/notes/[...slug]',
+		'/t/[...slug]': '/tags/[...slug]',
+		'/n': '/notes',
+	},
+	markdown: {
+		remarkPlugins: [
+			postReadingTime,
+		],
+		shikiConfig: {
+			wrap: true,
+		}
+	}
 });
