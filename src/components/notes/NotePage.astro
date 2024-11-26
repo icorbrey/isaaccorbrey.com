@@ -1,8 +1,8 @@
 ---
-import UtterancesComments from "../comments/UtterancesComments.astro";
-import type { NoteFrontmatter } from "../../data/notes";
+import UtterancesComments from "components/comments/UtterancesComments.astro";
+import type { NoteFrontmatter } from "stores/notes";
 import NoteHeader from "./NoteHeader.astro";
-import type { Tag } from "../../data/tags";
+import type { Tag } from "stores/tags";
 
 type Props = {
 	frontmatter: NoteFrontmatter;

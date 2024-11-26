@@ -1,10 +1,10 @@
 ---
-import ScreenColumn from '../components/controls/ScreenColumn.astro';
-import Footer from '../components/controls/Footer.astro';
-import Header from '../components/controls/Header.astro';
-import { articleSchema } from "../utils/openGraph";
+import ScreenColumn from 'components/controls/ScreenColumn.astro';
+import Footer from 'components/controls/Footer.astro';
+import Header from 'components/controls/Header.astro';
+import { articleSchema } from "utils/openGraph";
 import { z } from "astro:content";
-import "../style/global.css";
+import "style/global.css";
 
 const layoutProps = z.object({
 	image: z.string().default("https://isaaccorbrey.com/profile.png"),

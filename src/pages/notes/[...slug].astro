@@ -1,8 +1,8 @@
 ---
-import { noteStore, type NoteFrontmatter } from "../../data/notes";
-import NotePage from "../../components/notes/NotePage.astro";
-import Root from "../../layouts/Root.astro";
-import { tagStore } from "../../data/tags";
+import { noteStore, type NoteFrontmatter } from "stores/notes";
+import NotePage from "components/notes/NotePage.astro";
+import { tagStore } from "stores/tags";
+import Root from "layouts/Root.astro";
 
 const slug = Astro.params.slug!;
 const note = await noteStore.getSingle({

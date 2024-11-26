@@ -1,7 +1,7 @@
 ---
-import type { Note } from '../../data/notes';
-import Hero from '../controls/Hero.astro';
-import NoteList from './NoteList.astro';
+import NoteList from 'components/notes/NoteList.astro';
+import Hero from 'components/controls/Hero.astro';
+import type { Note } from 'stores/notes';
 
 type Props = {
 	notesByYear: {

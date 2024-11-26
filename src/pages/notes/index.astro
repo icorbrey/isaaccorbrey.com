@@ -1,7 +1,7 @@
 ---
-import NoteListPage from "../../components/notes/NoteListPage.astro";
-import { noteStore } from "../../data/notes";
-import Root from "../../layouts/Root.astro";
+import NoteListPage from "components/notes/NoteListPage.astro";
+import { noteStore } from "stores/notes";
+import Root from "layouts/Root.astro";
 
 const notesByYear = await noteStore.getByYear({
 	includeDrafts: import.meta.env.DEV,
