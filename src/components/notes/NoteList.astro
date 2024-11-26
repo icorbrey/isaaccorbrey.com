@@ -1,45 +1,56 @@
-<script lang="ts">
-	import type { Note } from "./store";
-	import { DateTime } from "luxon";
+---
+import { classes } from "../../utils/classes";
+import type { Note } from "../../data/notes";
+import { DateTime } from "luxon";
 
-	export let highlightNew: boolean = false;
-	export let notes: Note[] = [];
+type Props = {
+	highlightNew: boolean;
+	notes: Note[];
+};
 
-	const isNewNote = (note: Note) =>
-		highlightNew &&
-		DateTime.now().minus({ days: 40 }) <
-			DateTime.fromJSDate(note.data.publishedOn!);
+const { highlightNew = false, notes = [] } = Astro.props;
 
-	const isDraft = (note: Note) => !note.data.publishedOn;
+const isNewNote = (note: Note) =>
+	highlightNew &&
+	DateTime.now().minus({ days: 40 }) <
+		DateTime.fromJSDate(note.data.publishedOn!);
 
-	const getPublishedDate = (note: Note) =>
-		note.data.publishedOn?.toLocaleDateString("en-US", {
-			timeZone: "UTC",
-			year: "numeric",
-			month: "long",
-		}) ?? "";
-</script>
+const isDraft = (note: Note) => !note.data.publishedOn;
 
-{#if 0 < notes.length}
-	<ul>
-		{#each notes as note}
-			<li>
-				<a href={`/notes/${note.slug}`}>
-					<span class="title">{note.data.title}</span>
-					<span
-						class:draft={isDraft(note)}
-						class:new={isNewNote(note)}
-						class="date"
-					>
-						{getPublishedDate(note)}
-					</span>
-				</a>
-			</li>
-		{/each}
-	</ul>
-{:else}
-	<p>Move along, nothing to see here.</p>
-{/if}
+const getPublishedDate = (note: Note) =>
+	note.data.publishedOn?.toLocaleDateString("en-US", {
+		timeZone: "UTC",
+		year: "numeric",
+		month: "long",
+	}) ?? "";
+---
+
+{
+	0 < notes.length ? (
+		<ul>
+			{notes.map((note) => (
+				<li>
+					<a href={`/notes/${note.slug}`}>
+						<span class="title">{note.data.title}</span>
+						<span
+							class={classes(
+								{
+									draft: isDraft(note),
+									new: isNewNote(note),
+								},
+								"date",
+							)}
+						>
+							{getPublishedDate(note)}
+						</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	) : (
+		<p>Move along, nothing to see here.</p>
+	)
+}
 
 <style>
 	ul {

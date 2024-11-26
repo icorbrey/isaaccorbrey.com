@@ -1,0 +1,31 @@
+---
+import UtterancesComments from "../comments/UtterancesComments.astro";
+import type { NoteFrontmatter } from "../../data/notes";
+import NoteHeader from "./NoteHeader.astro";
+import type { Tag } from "../../data/tags";
+
+type Props = {
+	frontmatter: NoteFrontmatter;
+	tagDescriptions: Tag[];
+};
+
+const { frontmatter, tagDescriptions } = Astro.props;
+---
+
+<article>
+	<NoteHeader
+		publishedOn={frontmatter.publishedOn}
+		readingTime={frontmatter.readingTime}
+		title={frontmatter.title}
+		tags={frontmatter.tags}
+		{tagDescriptions}
+	/>
+	<slot />
+	<UtterancesComments />
+</article>
+
+<style>
+	article {
+		width: 100%;
+	}
+</style>

@@ -1,0 +1,29 @@
+---
+import type { Note } from '../../data/notes';
+import Hero from '../controls/Hero.astro';
+import NoteList from './NoteList.astro';
+
+type Props = {
+	notesByYear: {
+		title: string;
+		notes: Note[];
+	}[];
+}
+
+const { notesByYear = [] } = Astro.props;
+---
+
+<Hero title="Notes">
+	<p>
+		I write whatever I want here. Prepare for opinions, rants, passions, and
+		whatever else happens to pour out of my brain.
+	</p>
+</Hero>
+
+{notesByYear.length === 0 ? <>
+	<h2>Looks like there's nothing here yet.</h2>
+	<p>Come back later to see what I've been cooking up!</p>
+</> : notesByYear.map(({ title, notes }) => (
+	<h2>{title}</h2>
+	<NoteList highlightNew {notes} />
+))}
