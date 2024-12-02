@@ -1,5 +1,4 @@
 ---
-import UtterancesComments from "components/comments/UtterancesComments.astro";
 import type { NoteFrontmatter } from "stores/notes";
 import NoteHeader from "./NoteHeader.astro";
 import type { Tag } from "stores/tags";
@@ -21,7 +20,6 @@ const { frontmatter, tagDescriptions } = Astro.props;
 		{tagDescriptions}
 	/>
 	<slot />
-	<UtterancesComments />
 </article>
 
 <style>
