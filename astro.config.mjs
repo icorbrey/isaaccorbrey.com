@@ -5,23 +5,25 @@ import netlify from '@astrojs/netlify';
 import svelte from '@astrojs/svelte';
 import mdx from '@astrojs/mdx';
 
+import tailwind from '@astrojs/tailwind';
+
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://isaaccorbrey.com',
-	integrations: [svelte(), mdx()],
-	adapter: netlify(),
-	output: 'server',
-	redirects: {
-		'/n/[...slug]': '/notes/[...slug]',
-		'/t/[...slug]': '/tags/[...slug]',
-		'/n': '/notes',
-	},
-	markdown: {
-		remarkPlugins: [
-			postReadingTime,
-		],
-		shikiConfig: {
-			wrap: true,
-		}
-	}
+    site: 'https://isaaccorbrey.com',
+    integrations: [svelte(), mdx(), tailwind()],
+    adapter: netlify(),
+    output: 'server',
+    redirects: {
+        '/n/[...slug]': '/notes/[...slug]',
+        '/t/[...slug]': '/tags/[...slug]',
+        '/n': '/notes',
+    },
+    markdown: {
+        remarkPlugins: [
+            postReadingTime,
+        ],
+        shikiConfig: {
+            wrap: true,
+        }
+    }
 });

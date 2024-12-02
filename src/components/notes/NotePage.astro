@@ -11,7 +11,7 @@ type Props = {
 const { frontmatter, tagDescriptions } = Astro.props;
 ---
 
-<article>
+<article class="w-full">
 	<NoteHeader
 		publishedOn={frontmatter.publishedOn}
 		readingTime={frontmatter.readingTime}
@@ -21,9 +21,3 @@ const { frontmatter, tagDescriptions } = Astro.props;
 	/>
 	<slot />
 </article>
-
-<style>
-	article {
-		width: 100%;
-	}
-</style>

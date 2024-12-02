@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+
+a {
+  @apply text-blue-300 no-underline hover:text-blue-300 hover:underline;
+}
+
+h1 {
+  @apply text-5xl text-fg-1;
+}
+
+h2 {
+  @apply text-4xl text-fg-1;
+}
+
+h3 {
+  @apply text-3xl text-fg-1;
+}
+
+h4 {
+  @apply text-2xl text-fg-1;
+}
+
+@tailwind utilities;

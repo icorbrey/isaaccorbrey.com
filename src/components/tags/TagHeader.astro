@@ -9,7 +9,7 @@ type Props = {
 const { description, tag } = Astro.props;
 ---
 
-<header>
+<header class="py-16">
 	<h1><Tag large>{tag}</Tag></h1>
 	{
 		!!description ? (
@@ -21,9 +21,3 @@ const { description, tag } = Astro.props;
 		)
 	}
 </header>
-
-<style>
-	header {
-		padding: 4rem 0rem;
-	}
-</style>
