@@ -7,6 +7,7 @@ export const noteSchema = z.object({
 	description: z.string().optional(),
 	publishedOn: z.date().optional(),
 	imageUrl: z.string().optional(),
+	videoUrl: z.string().optional(),
 	title: z.string(),
 });
 
