@@ -1,0 +1,4 @@
+description: |
+  Just is a CLI tool for defining and running tasks using a Justfile, similar
+  to a simplified Makefile. It streamlines your workflow by organizing
+  project-specific commands.
