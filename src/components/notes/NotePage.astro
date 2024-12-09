@@ -1,6 +1,7 @@
 ---
 import type { NoteFrontmatter } from "stores/notes";
 import NoteHeader from "./NoteHeader.astro";
+import NoteVideo from "./NoteVideo.astro";
 import type { Tag } from "stores/tags";
 
 type Props = {
@@ -19,6 +20,7 @@ const { frontmatter, tagDescriptions } = Astro.props;
 		tags={frontmatter.tags}
 		{tagDescriptions}
 	/>
+	{!!frontmatter.videoUrl && <NoteVideo url={frontmatter.videoUrl} />}
 	<slot />
 </article>
 

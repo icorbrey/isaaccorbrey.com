@@ -137,6 +137,40 @@ ol:not(:first-child),
 	margin-top: 1.25rem;
 }
 
+.video-container {
+	/* 16:9 */
+	padding-bottom: 56.25%;
+	position: relative;
+	height: 0;
+}
+
+.video-container iframe {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.video-container:not(:first-child) {
+	margin-top: 1.25rem;
+}
+
+hr {
+	width: 3rem;
+	border: none;
+	border-top: dotted 0.5rem var(--foreground-4);
+	margin: 0 auto;
+}
+
+hr:not(:first-child) {
+	margin-top: 2.75rem;
+}
+
+hr+* {
+	margin-top: 2.5rem !important;
+}
+
 a {
 	color: var(--blue-300);
 	text-decoration: none;
@@ -164,7 +198,7 @@ h1 code {
 }
 
 h2 code {
-	font-size: 1.9rem;
+	font-size: 1.7rem;
 }
 
 h3 code {
@@ -175,7 +209,8 @@ h4 code {
 	font-size: 1.2rem;
 }
 
-p code {
+p code,
+li code {
 	color: var(--orange-500);
 	font-size: 1.1rem;
 	word-wrap: normal;

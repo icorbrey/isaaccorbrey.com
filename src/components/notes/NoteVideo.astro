@@ -1,0 +1,64 @@
+---
+type Props = {
+  url: string;
+};
+
+const { url } = Astro.props;
+---
+
+<div>
+  <p>
+    This is a companion post to my video of the same title. If you prefer a video
+    experience, feel free to watch it below:
+  </p>
+
+  <div class="container">
+    <div class="video-container">
+      <iframe
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        title="YouTube video player"
+        allowfullscreen
+        frameborder="0"
+        height="315"
+        width="560"
+        src={url}
+      >
+      </iframe>
+    </div>
+    <hr />
+  </div>
+</div>
+
+<style>
+  .container {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    margin-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+  
+  .video-container {
+  	/* 16:9 */
+  	padding-bottom: 56.25%;
+  	position: relative;
+  	height: 0;
+  }
+
+  .video-container iframe {
+  	position: absolute;
+  	height: 100%;
+  	width: 100%;
+  	left: 0;
+  	top: 0;
+  }
+
+  hr {
+  	width: 3rem;
+  	border: none;
+  	border-top: dotted 0.5rem var(--foreground-4);
+  	margin: 0 auto;
+  	margin-top: 2.75rem;
+  }
+</style>
