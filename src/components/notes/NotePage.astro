@@ -1,8 +1,10 @@
 ---
+import CommentLoader from "components/comments/CommentLoader.svelte";
+import TripleDots from "components/controls/TripleDots.astro";
 import type { NoteFrontmatter } from "stores/notes";
+import Prose from "components/controls/Prose.astro";
 import NoteHeader from "./NoteHeader.astro";
 import type { Tag } from "stores/tags";
-import Prose from "components/controls/Prose.astro";
 
 type Props = {
   frontmatter: NoteFrontmatter;
@@ -13,14 +15,25 @@ const { frontmatter, tagDescriptions } = Astro.props;
 ---
 
 <article class="w-full">
-  <NoteHeader
-    publishedOn={frontmatter.publishedOn}
-    readingTime={frontmatter.readingTime}
-    title={frontmatter.title}
-    tags={frontmatter.tags}
-    {tagDescriptions}
-  />
-  <Prose>
-    <slot />
-  </Prose>
+  <div class="px-3">
+    <NoteHeader
+      publishedOn={frontmatter.publishedOn}
+      readingTime={frontmatter.readingTime}
+      title={frontmatter.title}
+      tags={frontmatter.tags}
+      {tagDescriptions}
+    />
+    <Prose>
+      <slot />
+    </Prose>
+  </div>
+  <TripleDots />
+  {
+    !!frontmatter.blueskyPostUri ?
+      <CommentLoader uri={frontmatter.blueskyPostUri} client:load />
+    : <p class="mt-4 px-3 text-lg text-fg-3">
+        Fastest click in the West! Looks like you opened the page before I add
+        the comment section. Reload to see it!
+      </p>
+  }
 </article>
