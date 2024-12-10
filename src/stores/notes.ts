@@ -2,6 +2,7 @@ import { getCollection, getEntry, z, type CollectionEntry } from "astro:content"
 import { buildQuery } from "../utils/query";
 
 export const noteSchema = z.object({
+	blueskyPostUri: z.string().optional(),
 	tags: z.array(z.string()).default([]),
 	description: z.string().optional(),
 	publishedOn: z.date().optional(),

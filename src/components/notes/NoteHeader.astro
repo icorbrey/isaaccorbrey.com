@@ -19,8 +19,9 @@ const {
   title,
 } = Astro.props;
 
-const dateText = !!publishedOn
-  ? `Published on ${new Date(publishedOn).toLocaleDateString("en-US", {
+const dateText =
+  !!publishedOn ?
+    `Published on ${new Date(publishedOn).toLocaleDateString("en-US", {
       timeZone: "UTC",
       year: "numeric",
       day: "numeric",
