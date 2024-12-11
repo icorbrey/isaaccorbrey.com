@@ -1,82 +1,58 @@
 ---
-import type { Tag as TagType } from "stores/tags";
-import Tag from "components/tags/Tag.astro";
+import DotSeparated from "components/controls/DotSeparated.astro";
+import TagLink from "components/tags/TagLink.astro";
+import type { Tag } from "stores/tags";
 
 type Props = {
-	tagDescriptions: TagType[];
-	readingTime: string;
-	publishedOn?: Date;
-	tags: string[];
-	title: string;
+  tagDescriptions: Tag[];
+  readingTime: string;
+  publishedOn?: Date;
+  tags: string[];
+  title: string;
 };
 
 const {
-	publishedOn,
-	tagDescriptions,
-	readingTime,
-	tags = [],
-	title,
+  publishedOn,
+  tagDescriptions,
+  readingTime,
+  tags = [],
+  title,
 } = Astro.props;
 
 const dateText = !!publishedOn
-	? `Published on ${new Date(publishedOn).toLocaleDateString("en-US", {
-			timeZone: "UTC",
-			year: "numeric",
-			day: "numeric",
-			month: "long",
-		})}`
-	: "Draft";
+  ? `Published on ${new Date(publishedOn).toLocaleDateString("en-US", {
+      timeZone: "UTC",
+      year: "numeric",
+      day: "numeric",
+      month: "long",
+    })}`
+  : "Draft";
+
+const _tags = tags.map((tag) => ({
+  description: tagDescriptions.find((t) => t.id === tag)?.data?.description,
+  tag,
+}));
 ---
 
-<header>
-	<h1>{title}</h1>
-	<ul class="tags">
-		{
-			tags.map((tag) => (
-				<li>
-					<Tag
-						description={
-							tagDescriptions.find((t) => t.id === tag)?.data
-								?.description
-						}
-						href={`/tags/${tag}`}
-					>
-						{tag}
-					</Tag>
-				</li>
-			))
-		}
-	</ul>
-	<p aria-hidden="true">{dateText} &CenterDot; {readingTime}</p>
+<header class="py-16">
+  <h1 class="text-4xl sm:text-5xl font-bold text-fg-1">{title}</h1>
+  <ul class="-mt-1 sm:mt-1 flex gap-2">
+    {
+      _tags.map(({ tag, description }) => (
+        <li>
+          <TagLink {description} href={`/tags/${tag}`}>
+            {tag}
+          </TagLink>
+        </li>
+      ))
+    }
+  </ul>
+  <p aria-hidden="true" class="mt-4 text-lg hidden sm:flex">
+    <DotSeparated>{dateText}</DotSeparated>
+    <DotSeparated>{readingTime}</DotSeparated>
+  </p>
+  <p aria-hidden="true" class="mt-2 flex flex-col sm:hidden text-md">
+    <span>{dateText}</span>
+    <span class="-mt-1">{readingTime}</span>
+  </p>
 </header>
-
-<style>
-	header {
-		padding: 4rem 0rem;
-	}
-
-	h1 {
-		line-height: 3rem;
-	}
-
-	p {
-		font-size: 1.2rem;
-		margin-top: 1rem;
-	}
-
-	.tags {
-		flex-flow: row wrap;
-		display: flex;
-
-		padding: 0;
-		margin: 0;
-	}
-
-	li {
-		list-style: none;
-	}
-
-	li:not(:first-child) {
-		margin-left: 0.25rem;
-	}
-</style>

@@ -1,23 +1,19 @@
 ---
-import ButtonLink from "components/controls/ButtonLink.astro";
+import Section from "components/controls/Section.astro";
 import NoteList from "components/notes/NoteList.astro";
-import Row from "components/controls/Row.astro";
 import TagHeader from "./TagHeader.astro";
 import type { Note } from "stores/notes";
 
 type Props = {
-	description?: string;
-	notes?: Note[];
-	tag: string;
+  description?: string;
+  notes?: Note[];
+  tag: string;
 };
 
 const { description, notes = [], tag } = Astro.props;
 ---
 
 <TagHeader {tag} {description} />
-
-<Row>
-	<h2>Notes</h2>
-	<ButtonLink href="/notes">All notes</ButtonLink>
-</Row>
-<NoteList highlightNew {notes} />
+<Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
+  <NoteList highlightNew {notes} />
+</Section>

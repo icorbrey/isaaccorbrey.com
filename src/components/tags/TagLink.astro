@@ -1,0 +1,21 @@
+---
+import { z } from "astro:content";
+
+const schema = z.object({
+    description: z
+        .string()
+        .default("This tag does not yet have a description."),
+    href: z.string(),
+});
+
+type Props = z.input<typeof schema>;
+const { description, href } = schema.parse(Astro.props);
+---
+
+<a
+    {href}
+    title={description}
+    class="text-base font-code text-fg-3 hover:text-fg-2 no-underline hover:underline"
+>
+    #<slot />
+</a>

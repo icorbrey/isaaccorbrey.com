@@ -1,72 +1,44 @@
 ---
 import FooterIcon from "components/controls/FooterIcon.astro";
+import FooterLink from "components/controls/FooterLink.astro";
+
+const links = {
+  kofi: {
+    href: "https://ko-fi.com/icorbrey",
+  },
+  githubSponsors: {
+    href: "https://github.com/sponsors/icorbrey",
+  },
+};
+const icons = {
+  github: {
+    href: "https://github.com/icorbrey",
+    src: "/logos/github.svg",
+  },
+  printables: {
+    href: "https://printables.com/@icorbrey",
+    src: "/logos/printables.svg",
+  },
+  youtube: {
+    href: "https://youtube.com/@icorbrey",
+    src: "/logos/youtube.svg",
+  },
+  bsky: {
+    href: "https://bsky.app/profile/isaaccorbrey.com",
+    src: "/logos/bluesky.svg",
+  },
+};
 ---
 
-<footer>
-	<div class="text-links">
-		<a href="https://ko-fi.com/icorbrey">Buy me a coffee</a>
-		&CenterDot;
-		<a href="https://github.com/sponsors/icorbrey">Sponsor me</a>
-	</div>
-	<div class="icon-links">
-		<FooterIcon
-			href="https://github.com/icorbrey"
-			src="/logos/github.svg"
-			text="GitHub"
-		/>
-		<FooterIcon
-			href="https://printables.com/@icorbrey"
-			src="/logos/printables.svg"
-			text="Printables"
-		/>
-		<FooterIcon
-			href="https://youtube.com/@icorbrey"
-			src="/logos/youtube.svg"
-			text="YouTube"
-		/>
-		<FooterIcon
-			href="https://bsky.app/profile/isaaccorbrey.com"
-			src="/logos/bluesky.svg"
-			text="BlueSky"
-		/>
-	</div>
+<footer class="w-full mt-auto pt-16 pb-6 flex flex-col items-center">
+  <div class="flex flex-row">
+    <FooterLink {...links.kofi}>Buy me a coffee</FooterLink>
+    <FooterLink {...links.githubSponsors}>Sponsor me</FooterLink>
+  </div>
+  <div class="flex flex-row justify-center">
+    <FooterIcon {...icons.github}>GitHub</FooterIcon>
+    <FooterIcon {...icons.printables}>Printables</FooterIcon>
+    <FooterIcon {...icons.youtube}>YouTube</FooterIcon>
+    <FooterIcon {...icons.bsky}>BlueSky</FooterIcon>
+  </div>
 </footer>
-
-<style>
-	footer {
-		flex-flow: column nowrap;
-		align-items: center;
-		display: flex;
-		gap: 0.5rem;
-
-		padding-bottom: 1.5rem;
-		padding-top: 4rem;
-		margin-top: auto;
-		width: 100%;
-
-		font-size: 1.25rem;
-	}
-
-	.text-links {
-		flex-flow: row nowrap;
-		display: flex;
-		gap: 0.5rem;
-
-		color: var(--foreground-2);
-	}
-
-	.text-links a {
-		color: var(--foreground-2);
-	}
-
-	.text-links a:hover {
-		color: var(--foreground-1);
-	}
-
-	.icon-links {
-		justify-content: center;
-		flex-flow: row wrap;
-		display: flex;
-		gap: 0.45rem;
-	}
-</style>

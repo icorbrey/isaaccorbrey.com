@@ -1,146 +1,60 @@
 ---
 import type { Note } from "stores/notes";
-import { classes } from "utils/classes";
 import { DateTime } from "luxon";
 
 type Props = {
-	highlightNew: boolean;
-	notes: Note[];
+  highlightNew: boolean;
+  notes: Note[];
 };
 
 const { highlightNew = false, notes = [] } = Astro.props;
 
 const isNewNote = (note: Note) =>
-	highlightNew &&
-	DateTime.now().minus({ days: 40 }) <
-		DateTime.fromJSDate(note.data.publishedOn!);
+  highlightNew &&
+  DateTime.now().minus({ days: 40 }) <
+    DateTime.fromJSDate(note.data.publishedOn!);
 
 const isDraft = (note: Note) => !note.data.publishedOn;
 
 const getPublishedDate = (note: Note) =>
-	note.data.publishedOn?.toLocaleDateString("en-US", {
-		timeZone: "UTC",
-		year: "numeric",
-		month: "long",
-	}) ?? "";
+  note.data.publishedOn?.toLocaleDateString("en-US", {
+    timeZone: "UTC",
+    year: "numeric",
+    month: "long",
+  }) ?? "";
 ---
 
 {
-	0 < notes.length ? (
-		<ul>
-			{notes.map((note) => (
-				<li>
-					<a href={`/notes/${note.slug}`}>
-						<span class="title">{note.data.title}</span>
-						<span
-							class={classes(
-								{
-									draft: isDraft(note),
-									new: isNewNote(note),
-								},
-								"date",
-							)}
-						>
-							{getPublishedDate(note)}
-						</span>
-					</a>
-				</li>
-			))}
-		</ul>
-	) : (
-		<p>Move along, nothing to see here.</p>
-	)
+  0 < notes.length ? (
+    <ul class="w-full flex flex-col gap-1 sm:gap-0.5">
+      {notes.map((note) => (
+        <li>
+          <a
+            href={`/notes/${note.slug}`}
+            class="group nounderline flex flex-col gap-0.5 sm:gap-0 sm:flex-row sm:justify-between"
+          >
+            <span class="text-xl group-hover:underline text-blue-300 group-hover:text-blue-400">
+              {note.data.title}
+            </span>
+            {isDraft(note) ? (
+              <span class="bg-fg-2 text-bg-1 text-[0.675rem] uppercase tracking-wide leading-none rounded px-1 py-1 self-start sm:self-center">
+                Draft
+              </span>
+            ) : isNewNote(note) ? (
+              <span class="flex flex-row items-center gap-2 text-base text-orange-400 font-medium">
+                {getPublishedDate(note)}
+                <span class="bg-orange-400 text-bg-1 text-[0.675rem] uppercase tracking-wide leading-none rounded px-1 py-1">
+                  New!
+                </span>
+              </span>
+            ) : (
+              <span class="text-base">{getPublishedDate(note)}</span>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="text-lg">Move along, nothing to see here.</p>
+  )
 }
-
-<style>
-	ul {
-		flex-flow: column nowrap;
-		display: flex;
-		gap: 1rem;
-
-		width: 100%;
-		padding: 0;
-	}
-
-	li {
-		list-style: none;
-	}
-
-	a {
-		display: block;
-
-		text-decoration: none;
-		font-size: 1.5rem;
-	}
-
-	a:hover .title {
-		text-decoration: underline;
-	}
-
-	.date {
-		flex-flow: row nowrap;
-		align-items: center;
-		text-wrap: nowrap;
-		display: flex;
-
-		color: var(--foreground-2);
-		font-size: 1.2rem;
-	}
-
-	.date::after {
-		text-transform: uppercase;
-		letter-spacing: 0.05rem;
-		font-size: 0.75rem;
-		font-weight: 500;
-
-		color: var(--background-1);
-
-		padding: 0.1rem 0.3rem;
-		border-radius: 0.3rem;
-	}
-
-	.draft::after {
-		background-color: var(--foreground-2);
-		margin-top: 0.5rem;
-		content: "Draft";
-	}
-
-	.new {
-		color: var(--orange-400);
-		font-weight: 500;
-	}
-
-	.new::after {
-		background-color: var(--orange-400);
-		margin-left: 0.5rem;
-		content: "New!";
-	}
-
-	@media (min-width: 40rem) {
-		ul {
-			grid-template-columns: 1fr auto;
-			grid-auto-rows: auto;
-			column-gap: 1rem;
-			row-gap: 0rem;
-			display: grid;
-		}
-
-		li {
-			display: contents;
-		}
-
-		a {
-			display: contents;
-		}
-
-		.title {
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-		}
-
-		.date {
-			justify-content: flex-end;
-		}
-	}
-</style>

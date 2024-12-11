@@ -1,29 +1,18 @@
 ---
-import Tag from "components/tags/Tag.astro";
+import { z } from "astro:content";
 
-type Props = {
-	description?: string;
-	tag: string;
-};
+const schema = z.object({
+  description: z.string().optional(),
+  tag: z.string(),
+});
 
-const { description, tag } = Astro.props;
+type Props = z.input<typeof schema>;
+const { description, tag } = schema.parse(Astro.props);
 ---
 
-<header>
-	<h1><Tag large>{tag}</Tag></h1>
-	{
-		!!description ? (
-			<p>{description}</p>
-		) : (
-			<p>
-				<i>No description yet.</i>
-			</p>
-		)
-	}
+<header class="py-16">
+  <h1 class="text-4xl font-code text-fg-1 underline">#{tag}</h1>
+  <p class="mt-4 text-lg">
+    {!!description ? <>{description}</> : <i>No description yet.</i>}
+  </p>
 </header>
-
-<style>
-	header {
-		padding: 4rem 0rem;
-	}
-</style>
