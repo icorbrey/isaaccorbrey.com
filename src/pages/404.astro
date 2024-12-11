@@ -1,0 +1,23 @@
+---
+import Prose from "components/controls/Prose.astro";
+import Hero from "components/controls/Hero.astro";
+import Root from "layouts/Root.astro";
+
+const issues = "https://github.com/icorbrey/isaaccorbrey.com/issues";
+---
+
+<Root title="Page not found">
+  <Hero title="You look lost.">
+    <Prose>
+      <p>
+        This page does not exist. This may or may not be intentional, and could
+        or could not be a problem.
+      </p>
+
+      <p>
+        If you think this page should exist,
+        <a href={issues}>create an issue</a>.
+      </p>
+    </Prose>
+  </Hero>
+</Root>

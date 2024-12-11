@@ -1,24 +1,17 @@
 ---
-type Props = {
-	title: string;
-};
+import { z } from "astro:content";
 
-const { title } = Astro.props;
+const schema = z.object({
+  title: z.string(),
+});
+
+type Props = z.input<typeof schema>;
+const { title } = schema.parse(Astro.props);
 ---
 
-<div>
-	<h1>{title}</h1>
-	<slot />
+<div class="py-16 sm:py-32">
+  <h1 class="text-5xl text-fg-1 font-bold mb-6">
+    {title}
+  </h1>
+  <slot />
 </div>
-
-<style>
-	div {
-		padding: 4rem 0;
-	}
-
-	@media (min-width: 40rem) {
-		div {
-			padding: 8rem 0;
-		}
-	}
-</style>

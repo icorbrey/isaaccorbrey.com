@@ -2,28 +2,25 @@
 import type { NoteFrontmatter } from "stores/notes";
 import NoteHeader from "./NoteHeader.astro";
 import type { Tag } from "stores/tags";
+import Prose from "components/controls/Prose.astro";
 
 type Props = {
-	frontmatter: NoteFrontmatter;
-	tagDescriptions: Tag[];
+  frontmatter: NoteFrontmatter;
+  tagDescriptions: Tag[];
 };
 
 const { frontmatter, tagDescriptions } = Astro.props;
 ---
 
-<article>
-	<NoteHeader
-		publishedOn={frontmatter.publishedOn}
-		readingTime={frontmatter.readingTime}
-		title={frontmatter.title}
-		tags={frontmatter.tags}
-		{tagDescriptions}
-	/>
-	<slot />
+<article class="w-full">
+  <NoteHeader
+    publishedOn={frontmatter.publishedOn}
+    readingTime={frontmatter.readingTime}
+    title={frontmatter.title}
+    tags={frontmatter.tags}
+    {tagDescriptions}
+  />
+  <Prose>
+    <slot />
+  </Prose>
 </article>
-
-<style>
-	article {
-		width: 100%;
-	}
-</style>

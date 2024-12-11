@@ -1,10 +1,8 @@
 ---
-import ScreenColumn from 'components/controls/ScreenColumn.astro';
 import Footer from 'components/controls/Footer.astro';
 import Header from 'components/controls/Header.astro';
 import { articleSchema } from "utils/openGraph";
 import { z } from "astro:content";
-import "style/global.css";
 
 const layoutProps = z.object({
 	image: z.string().default("https://isaaccorbrey.com/profile.png"),
@@ -29,7 +27,7 @@ const siteName = "Isaac Corbrey";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="w-full h-full">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -69,11 +67,11 @@ const siteName = "Isaac Corbrey";
 			)
 		}
 	</head>
-	<body>
-		<ScreenColumn>
+	<body class="w-full h-full flex items-stretch justify-center bg-bg-1 text-fg-2 font-display">
+		<div class="flex flex-col items-start px-3 w-full max-w-3xl">
 			<Header />
 			<slot />
 			<Footer />
-		</ScreenColumn>
+		</div>
 	</body>
 </html>

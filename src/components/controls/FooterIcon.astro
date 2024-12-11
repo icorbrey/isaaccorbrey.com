@@ -1,44 +1,23 @@
 ---
-type Props = {
-	href: string;
-	text: string;
-	src: string;
-};
+import { z } from "astro:content";
+import DotSeparated from "./DotSeparated.astro";
 
-const { href, text, src } = Astro.props;
+const schema = z.object({
+  href: z.string(),
+  src: z.string(),
+});
+
+type Props = z.input<typeof schema>;
+const { href, src } = schema.parse(Astro.props);
 ---
 
-<a {href}>
-	<img {src} alt={`${text} logo`} />
-	<span>{text}</span>
-</a>
-
-<style>
-	a {
-		flex-flow: row nowrap;
-		align-items: center;
-		display: flex;
-		gap: 0.45rem;
-
-		border: solid 1px var(--foreground-3);
-		border-radius: 0.5rem;
-		padding: 0.2rem 0.5rem;
-
-		color: var(--foreground-2);
-	}
-
-	a:hover {
-		color: var(--foreground-1);
-	}
-
-	img {
-		height: 1rem;
-	}
-
-	span {
-		text-transform: uppercase;
-		letter-spacing: 0.0625rem;
-		font-size: 0.875rem;
-		font-weight: 500;
-	}
-</style>
+<DotSeparated>
+  <a class="group flex flex-row items-center gap-1" {href}>
+    <img class="h-3.5" {src} />
+    <span
+      class="font-medium leading-loose tracking-wider text-sm uppercase group-hover:text-fg-1 group-hover:underline"
+    >
+      <slot />
+    </span>
+  </a>
+</DotSeparated>
