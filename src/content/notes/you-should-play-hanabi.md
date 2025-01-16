@@ -4,6 +4,7 @@ description: |
     It's been living rent free in my brain.
 tags: [card-games, hanabi]
 publishedOn: 2025-01-16
+blueskyPostUri: at://did:plc:zviscnpwyvj6y32agi5davn5/app.bsky.feed.post/3lfv4smdwss2i
 ---
 
 Very rarely do I encounter "new" card games, especially ones that actually make
