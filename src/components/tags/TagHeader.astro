@@ -10,7 +10,7 @@ type Props = z.input<typeof schema>;
 const { description, tag } = schema.parse(Astro.props);
 ---
 
-<header class="py-16">
+<header class="py-16 px-3">
   <h1 class="text-4xl font-code text-fg-1 underline">#{tag}</h1>
   <p class="mt-4 text-lg">
     {!!description ? <>{description}</> : <i>No description yet.</i>}
