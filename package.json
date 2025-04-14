@@ -16,7 +16,7 @@
     "@astrojs/netlify": "^6.2.2",
     "@astrojs/svelte": "^7.0.5",
     "@astrojs/tailwind": "^6.0.2",
-    "@atproto/api": "^0.14.20",
+    "@atproto/api": "^0.14.22",
     "@types/babel__generator": "^7.6.8",
     "astro": "^5.4.2",
     "luxon": "^3.5.0",
