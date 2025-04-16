@@ -1,0 +1,4 @@
+description: |
+  Nix is a package manager and build system that ensures reproducible and
+  reliable software deployments. It simplifies package management by providing
+  consistent environments and configurations across systems.
