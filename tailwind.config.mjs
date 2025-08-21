@@ -4,7 +4,7 @@ export default {
 	theme: {
 		fontFamily: {
 			display: ['"Afacad Flux"', 'sans-serif'],
-			code: ['"Fira Code"', 'monospace'],
+			code: ['"FiraCode Nerd Font"', '"Fira Code"', 'monospace'],
 		},
 		extend: {
 			colors: {
