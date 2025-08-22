@@ -1,5 +1,4 @@
 ---
-import ProjectList from "components/projects/ProjectList.astro";
 import Section from "components/controls/Section.astro";
 import NoteList from "components/notes/NoteList.astro";
 import Prose from "components/controls/Prose.astro";
@@ -31,9 +30,5 @@ const notes = await noteStore.getRecent({
 
   <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
     <NoteList {notes} highlightNew />
-  </Section>
-
-  <Section title="Projects" link={{ text: "All projects", href: "/projects" }}>
-    <ProjectList />
   </Section>
 </Root>
