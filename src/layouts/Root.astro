@@ -45,6 +45,8 @@ const siteName = "Isaac Corbrey";
 
 		<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mshaugh/nerdfont-webfonts@v3.3.0/build/firacode-nerd-font.css">
+
+		<link rel="alternate" type="application/rss+xml" title="Isaac Corbrey's Notes" href={new URL("rss.xml", Astro.site)} />
  
 		<title>{[props.title, siteName].filter(Boolean).join(" - ")}</title>
 
