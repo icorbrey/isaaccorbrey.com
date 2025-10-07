@@ -1,4 +1,5 @@
 ---
+import Prose from "components/controls/Prose.astro";
 import { z } from "astro:content";
 
 const schema = z.object({
@@ -13,5 +14,7 @@ const { title } = schema.parse(Astro.props);
   <h1 class="text-5xl text-fg-1 font-bold mb-6">
     {title}
   </h1>
-  <slot />
+  <Prose>
+    <slot />
+  </Prose>
 </div>

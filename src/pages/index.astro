@@ -1,7 +1,6 @@
 ---
 import Section from "components/controls/Section.astro";
 import NoteList from "components/notes/NoteList.astro";
-import Prose from "components/controls/Prose.astro";
 import Hero from "components/controls/Hero.astro";
 import { noteStore } from "stores/notes";
 import Root from "layouts/Root.astro";
@@ -10,22 +9,26 @@ const notes = await noteStore.getRecent({
   includeDrafts: import.meta.env.DEV,
   limit: 10,
 });
+
+const description = "I like building tools, breaking workflows, and putting "
+  + "them back together better.";
+
+const links = {
+  footnotes: "https://tangled.org/@footnotes.social",
+  jujutsu: "https://jj-vcs.github.io/jj/latest",
+}
 ---
 
-<Root
-  description={"I'm a software developer who works on open source projects and " +
-    "occasionally writes articles and videos about technical topics."}
->
+<Root {description}>
   <Hero title="Hey! I'm Isaac">
-    <Prose>
-      <p>
-        I'm a software developer who works on open source projects and
-        occasionally writes articles and videos about technical topics.
-      </p>
-      <p>
-        Stick around and check out my <a href="/notes">notes</a>!
-      </p>
-    </Prose>
+    <p>
+      {description} You'll usually find me deep in Rust, hacking on
+      <a href={links.footnotes}>Footnotes</a>, or helping shape
+      <a href={links.jujutsu}>Jujutsu</a>.
+    </p>
+    <p>
+      I write about what I learn along the way in my <a href="/notes">notes</a>.
+    </p>
   </Hero>
 
   <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
