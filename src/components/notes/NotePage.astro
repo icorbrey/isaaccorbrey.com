@@ -1,6 +1,5 @@
 ---
 import CommentLoader from "components/comments/CommentLoader.svelte";
-import TripleDots from "components/controls/TripleDots.astro";
 import type { NoteFrontmatter } from "stores/notes";
 import Prose from "components/controls/Prose.astro";
 import NoteHeader from "./NoteHeader.astro";
@@ -54,7 +53,7 @@ function joinReviewers(nodes: any[]) {
           <p>
             Special thanks to{" "}
             {joinReviewers(frontmatter.reviewers.map(({ link, display }) => (
-              <a href={link}>{display}</a>
+              !! link ? <a href={link}>{display}</a> : link
             )))}
             {" "}
             for reading early drafts and sharing

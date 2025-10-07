@@ -10,7 +10,7 @@ export const noteSchema = z.object({
 	videoUrl: z.string().optional(),
 	title: z.string(),
 	reviewers: z.array(z.object({
-		link: z.string().url(),
+		link: z.string().url().optional(),
 		display: z.string(),
 	})).default([]),
 });
