@@ -9,6 +9,10 @@ export const noteSchema = z.object({
 	imageUrl: z.string().optional(),
 	videoUrl: z.string().optional(),
 	title: z.string(),
+	reviewers: z.array(z.object({
+		link: z.string().url(),
+		display: z.string(),
+	})).default([]),
 });
 
 export type Note = CollectionEntry<"notes">;
