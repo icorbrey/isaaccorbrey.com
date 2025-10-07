@@ -1,0 +1,4 @@
+description: |
+  A megamerge is a single commit that merges together all the branches you care
+  about into one working context. It’s a powerful way to test, iterate, and keep
+  everything you’re working on in sync.
