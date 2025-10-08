@@ -53,7 +53,7 @@ function joinReviewers(nodes: any[]) {
           <p>
             Special thanks to{" "}
             {joinReviewers(frontmatter.reviewers.map(({ link, display }) => (
-              !! link ? <a href={link}>{display}</a> : link
+              !! link ? <a href={link}>{display}</a> : display
             )))}
             {" "}
             for reading early drafts and sharing
