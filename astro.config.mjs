@@ -1,10 +1,10 @@
 // @ts-check
 import { postReadingTime } from './src/remark-plugins/post-reading-time.mjs';
 import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
 import netlify from '@astrojs/netlify';
 import svelte from '@astrojs/svelte';
-
-import tailwind from '@astrojs/tailwind';
+import remarkGfm from "remark-gfm";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,6 +20,7 @@ export default defineConfig({
     markdown: {
         remarkPlugins: [
             postReadingTime,
+            remarkGfm,
         ],
         shikiConfig: {
             wrap: true,
