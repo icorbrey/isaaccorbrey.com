@@ -38,7 +38,7 @@ const tagDescriptions = (await tagStore.getAll()).filter(({ id }) =>
 		"article:section": "Notes",
 	}}
 >
-	<NotePage {frontmatter} {tagDescriptions}>
+	<NotePage {slug} {frontmatter} {tagDescriptions}>
 		<Content />
 	</NotePage>
 </Root>
