@@ -1,0 +1,39 @@
+---
+import { z } from "astro:schema";
+
+const schema = z.object({
+  page: z.string().optional(),
+});
+
+type Props = z.input<typeof schema>;
+const { page } = schema.parse(Astro.props);
+
+const params = [
+  "utm_source=isaaccorbrey.com",
+  "utm_medium=subscribe_form",
+];
+
+if (page) {
+  params.push(`utm_campaign=${page}`);
+}
+---
+
+<form
+  onsubmit={`window.open('https://buttondown.com/icorbrey?${params.join("&")}', 'popupwindow')`}
+  action="https://buttondown.com/api/emails/embed-subscribe/icorbrey"
+  class="flex flex-wrap gap-1"
+  target="popupwindow"
+  method="post"
+>
+  <input
+    class="bg-ui-1 text-fg-2 px-3 py-1 rounded-md"
+    placeholder="Enter your email"
+    name="email"
+    type="email"
+  />
+  <input
+    class="bg-blue-500 text-fg-1 px-3 py-1 rounded-md hover:bg-blue-400 transition"
+    value="Subscribe"
+    type="submit"
+  />
+</form>
