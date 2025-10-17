@@ -1,4 +1,5 @@
 ---
+import ButtondownInput from "components/controls/ButtondownInput.astro";
 import CommentLoader from "components/comments/CommentLoader.svelte";
 import type { NoteFrontmatter } from "stores/notes";
 import Prose from "components/controls/Prose.astro";
@@ -9,9 +10,10 @@ import type { Tag } from "stores/tags";
 type Props = {
   frontmatter: NoteFrontmatter;
   tagDescriptions: Tag[];
+  slug: string;
 };
 
-const { frontmatter, tagDescriptions } = Astro.props;
+const { slug, frontmatter, tagDescriptions } = Astro.props;
 
 const kofi = "https://ko-fi.com/icorbrey";
 const liberapay = "https://liberapay.com/isaaccorbrey.com"
@@ -67,6 +69,7 @@ function joinReviewers(nodes: any[]) {
           <a href={kofi}>buy me a coffee ☕</a> or <a href={liberapay}>support
           me on Liberapay 💛</a>.
         </p>
+        <ButtondownInput page={slug}/>
       </Prose>
     </div>
   </div>
