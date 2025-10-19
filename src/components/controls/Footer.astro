@@ -34,16 +34,16 @@ const icons = {
 };
 ---
 
-<footer class="w-full mt-auto pt-16 pb-6 flex flex-col items-center">
-  <div class="flex flex-row">
+<footer class="w-full mt-auto pt-16 pb-6 flex flex-col items-center gap-2">
+  <ul class="flex flex-row flex-wrap gap-1 justify-center">
     <FooterLink {...links.kofi}>Buy me a coffee</FooterLink>
     <FooterLink {...links.liberapay}>Support me on Liberapay</FooterLink>
-  </div>
-  <div class="flex flex-row justify-center">
+  </ul>
+  <ul class="flex flex-row flex-wrap justify-center gap-x-6">
     <FooterIcon {...icons.github}>GitHub</FooterIcon>
     <FooterIcon {...icons.printables}>Printables</FooterIcon>
     <FooterIcon {...icons.youtube}>YouTube</FooterIcon>
     <FooterIcon {...icons.bsky}>BlueSky</FooterIcon>
     <FooterIcon {...icons.rss}>RSS</FooterIcon>
-  </div>
+  </ul>
 </footer>
