@@ -1,6 +1,5 @@
 ---
 import { z } from "astro:content";
-import DotSeparated from "./DotSeparated.astro";
 
 const schema = z.object({
   href: z.string(),
@@ -10,11 +9,11 @@ type Props = z.input<typeof schema>;
 const { href } = schema.parse(Astro.props);
 ---
 
-<DotSeparated>
+<li class="list-none">
   <a
     {href}
-    class="text-lg text-fg-2 hover:text-fg-1 nounderline hover:underline"
+    class="px-3 py-1 rounded-md text-lg nounderline bg-bg-2 text-fg-2 hover:text-fg-1 hover:bg-bg-3 transition"
   >
     <slot />
   </a>
-</DotSeparated>
+</li>

@@ -1,6 +1,5 @@
 ---
 import { z } from "astro:content";
-import DotSeparated from "./DotSeparated.astro";
 
 const schema = z.object({
   href: z.string(),
@@ -11,8 +10,8 @@ type Props = z.input<typeof schema>;
 const { href, src } = schema.parse(Astro.props);
 ---
 
-<DotSeparated>
-  <a class="group flex flex-row items-center gap-1" {href}>
+<li class="list-none">
+  <a class="group flex flex-row items-center gap-1.5" {href}>
     <img class="h-3.5" {src} />
     <span
       class="font-medium leading-loose tracking-wider text-sm uppercase group-hover:text-fg-1 group-hover:underline"
@@ -20,4 +19,4 @@ const { href, src } = schema.parse(Astro.props);
       <slot />
     </span>
   </a>
-</DotSeparated>
+</li>
