@@ -35,9 +35,9 @@ const _tags = tags.map((tag) => ({
 }));
 ---
 
-<header class="py-16">
+<header class="flex flex-col gap-2 py-16">
   <h1 class="text-4xl sm:text-5xl font-bold text-fg-1">{title}</h1>
-  <ul class="-mt-1 sm:mt-0 flex gap-3">
+  <ul class="-mt-1 sm:mt-0 flex flex-row flex-wrap gap-x-3">
     {
       _tags.map(({ tag, description }) => (
         <li>
