@@ -2,6 +2,7 @@ import { getCollection, getEntry, z, type CollectionEntry } from "astro:content"
 import { buildQuery } from "../utils/query";
 
 export const noteSchema = z.object({
+	isFeatured: z.boolean().default(false),
 	blueskyPostUri: z.string().optional(),
 	tags: z.array(z.string()).default([]),
 	description: z.string().optional(),
@@ -119,9 +120,25 @@ export const getNotesByYear = buildQuery(getNotesByYearQuery, async (query) => {
 	noteGroups.sort((a, b) => b.title.localeCompare(a.title))
 
 	return noteGroups
+});
+
+const getFeaturedNoteQuery = z.object({
+	includeDrafts: z.boolean().default(false),
+});
+
+export const getFeaturedNote = buildQuery(getFeaturedNoteQuery, async (query) => {
+	const notes = (await getAllNotes({
+		includeDrafts: query.includeDrafts,
+	})).filter(note => note.data.isFeatured);
+
+	if (0 < notes.length) {
+		sortNotes(notes);
+		return notes[0];
+	}
 })
 
 export const noteStore = {
+	getFeatured: getFeaturedNote,
 	getByYear: getNotesByYear,
 	getRecent: getRecentNotes,
 	getTagged: getTaggedNotes,

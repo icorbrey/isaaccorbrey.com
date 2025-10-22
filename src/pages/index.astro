@@ -4,6 +4,7 @@ import NoteList from "components/notes/NoteList.astro";
 import Hero from "components/controls/Hero.astro";
 import { noteStore } from "stores/notes";
 import Root from "layouts/Root.astro";
+import FeaturedNote from "components/notes/FeaturedNote.astro";
 import Prose from "components/controls/Prose.astro";
 
 const notes = await noteStore.getRecent({
@@ -32,6 +33,7 @@ const links = {
         I write about what I learn along the way in my <a href="/notes">notes</a>.
       </p>
     </Prose>
+    <FeaturedNote class="mt-24" />
   </Hero>
   <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
     <NoteList {notes} highlightNew />
