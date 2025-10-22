@@ -41,9 +41,9 @@ const getPublishedDate = (note: Note) =>
                 Draft
               </span>
             ) : isNewNote(note) ? (
-              <span class="flex flex-row items-center gap-2 text-base text-orange-400 font-medium">
+              <span class="flex flex-row items-center gap-2 text-base font-medium">
                 {getPublishedDate(note)}
-                <span class="bg-orange-400 text-bg-1 text-[0.675rem] uppercase tracking-wide leading-none rounded px-1 py-1">
+                <span class="bg-fg-2 text-bg-1 text-[0.675rem] uppercase tracking-wide leading-none rounded px-1 py-0.5">
                   New!
                 </span>
               </span>

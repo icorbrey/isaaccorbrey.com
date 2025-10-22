@@ -15,6 +15,7 @@ export default {
 				},
 				fg: {
 					1: "#dcdcdc",
+					"1-5": "#cdcdcd",
 					2: "#bfbfbf",
 					3: "#8c8c8c",
 					4: "#686868",
