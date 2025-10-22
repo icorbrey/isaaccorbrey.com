@@ -4,6 +4,7 @@ import NoteList from "components/notes/NoteList.astro";
 import Hero from "components/controls/Hero.astro";
 import { noteStore } from "stores/notes";
 import Root from "layouts/Root.astro";
+import Prose from "components/controls/Prose.astro";
 
 const notes = await noteStore.getRecent({
   includeDrafts: import.meta.env.DEV,
@@ -21,16 +22,17 @@ const links = {
 
 <Root {description}>
   <Hero title="Hey! I'm Isaac">
-    <p>
-      {description} You'll usually find me deep in Rust, hacking on
-      <a href={links.footnotes}>Footnotes</a>, or helping shape
-      <a href={links.jujutsu}>Jujutsu</a>.
-    </p>
-    <p>
-      I write about what I learn along the way in my <a href="/notes">notes</a>.
-    </p>
+    <Prose>
+      <p>
+        {description} You'll usually find me deep in Rust, hacking on
+        <a href={links.footnotes}>Footnotes</a>, or helping shape
+        <a href={links.jujutsu}>Jujutsu</a>.
+      </p>
+      <p>
+        I write about what I learn along the way in my <a href="/notes">notes</a>.
+      </p>
+    </Prose>
   </Hero>
-
   <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
     <NoteList {notes} highlightNew />
   </Section>
