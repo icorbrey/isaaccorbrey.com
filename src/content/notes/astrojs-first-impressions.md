@@ -4,6 +4,7 @@ description: |
     My first impressions of Astro, a web framework for content-driven websites.
 tags: [astro, zod]
 publishedOn: 2024-11-07
+isFeatured: true
 blueskyPostUri: at://did:plc:zviscnpwyvj6y32agi5davn5/app.bsky.feed.post/3lafszk4cjj2n
 ---
 

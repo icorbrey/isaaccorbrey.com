@@ -2,6 +2,7 @@
 import Section from "components/controls/Section.astro";
 import NoteList from "components/notes/NoteList.astro";
 import Hero from "components/controls/Hero.astro";
+import FeaturedNote from "./FeaturedNote.astro";
 import type { Note } from "stores/notes";
 
 type Props = {
@@ -19,6 +20,7 @@ const { notesByYear = [] } = Astro.props;
     I write about the things I learn here. Don't be surprised if you never see
     the same topic covered twice.
   </p>
+  <FeaturedNote class="mt-12" />
 </Hero>
 
 {

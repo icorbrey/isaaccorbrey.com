@@ -4,6 +4,7 @@ import NoteList from "components/notes/NoteList.astro";
 import Hero from "components/controls/Hero.astro";
 import { noteStore } from "stores/notes";
 import Root from "layouts/Root.astro";
+import FeaturedNote from "components/notes/FeaturedNote.astro";
 import Prose from "components/controls/Prose.astro";
 
 const notes = await noteStore.getRecent({
@@ -15,8 +16,8 @@ const description = "I like building tools, breaking workflows, and putting "
   + "them back together better.";
 
 const links = {
-  footnotes: "https://tangled.org/@footnotes.social",
-  jujutsu: "https://jj-vcs.github.io/jj/latest",
+  atproto: "https://atproto.com",
+  jujutsu: "https://jj-vcs.dev",
 }
 ---
 
@@ -25,7 +26,7 @@ const links = {
     <Prose>
       <p>
         {description} You'll usually find me deep in Rust, hacking on
-        <a href={links.footnotes}>Footnotes</a>, or helping shape
+        <a href={links.atproto}>ATProto</a>, or helping shape
         <a href={links.jujutsu}>Jujutsu</a>.
       </p>
       <p>
@@ -34,6 +35,7 @@ const links = {
     </Prose>
   </Hero>
   <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
+    <FeaturedNote class="my-2" />
     <NoteList {notes} highlightNew />
   </Section>
 </Root>
