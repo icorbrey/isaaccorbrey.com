@@ -20,6 +20,8 @@ pnpm run dev
 
 - [Astro](https://docs.astro.build/en/getting-started/)
 - [Svelte](https://svelte.dev/docs/svelte/overview)
+- [VHS](https://github.com/charmbracelet/vhs) for terminal demos (render with
+  `just render`; commit the generated files under `public/demos/`)
 
 ## License
 
