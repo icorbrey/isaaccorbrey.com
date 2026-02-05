@@ -12,8 +12,8 @@ Clone the repository and install dependencies:
 ```sh
 git clone https://github.com/icorbrey/isaaccorbrey.com.git
 cd isaaccorbrey.com
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ## Tools
