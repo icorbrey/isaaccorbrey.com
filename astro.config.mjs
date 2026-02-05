@@ -5,6 +5,7 @@ import tailwind from '@astrojs/tailwind';
 import netlify from '@astrojs/netlify';
 import svelte from '@astrojs/svelte';
 import remarkGfm from "remark-gfm";
+import clarityNoir from './themes/clarity-noir.json' assert { type: 'json' };
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,6 +25,7 @@ export default defineConfig({
         ],
         shikiConfig: {
             wrap: true,
+            theme: clarityNoir,
         }
     }
 });
