@@ -1,5 +1,5 @@
 {
-  "siteUrl": "https://isaaccorbrey.com",
+  "siteUrl": "https://isaaccorbrey.com/notes",
   "contentDir": "./src/content/notes",
   "outputDir": "./dist",
   "pathPrefix": "/notes",
