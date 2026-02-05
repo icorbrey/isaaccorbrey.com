@@ -1,0 +1,14 @@
+{
+  "siteUrl": "https://isaaccorbrey.com",
+  "contentDir": "./src/content/notes",
+  "outputDir": "./dist",
+  "pathPrefix": "/notes",
+  "publicationUri": "at://did:plc:zviscnpwyvj6y32agi5davn5/site.standard.publication/3me4txfib342s",
+  "pdsUrl": "https://ganoderma.us-west.host.bsky.network",
+  "frontmatter": {
+    "publishDate": "publishedOn"
+  },
+  "bluesky": {
+    "enabled": true
+  }
+}
