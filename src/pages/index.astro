@@ -11,10 +11,10 @@ import Root from "layouts/Root.astro";
 
 const notes = await noteStore.getRecent({
   includeDrafts: import.meta.env.DEV,
-  limit: 10,
+  limit: 5,
 });
 
-const ramblings = (await getRamblingsIndex()).slice(0, 10);
+const ramblings = (await getRamblingsIndex()).slice(0, 20);
 
 const description = "I like building tools, breaking workflows, and putting "
   + "them back together better.";
@@ -39,14 +39,18 @@ const links = {
       </p>
     </Prose>
   </Hero>
-  <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
-    <FeaturedNote class="my-2" />
+  <Section
+    title="Notes"
+    link={{ text: "All notes", href: "/notes" }}
+    class="mt-16 sm:mt-10"
+  >
+    <FeaturedNote class="mb-8 mt-4 hidden sm:block" />
     <NoteList {notes} highlightNew />
   </Section>
   <Section
     title="Ramblings"
     link={{ text: "All ramblings", href: "/ramblings" }}
-    class="mt-20 gap-6"
+    class="mt-24 sm:mt-20 gap-6"
   >
     <RamblingList ramblings={ramblings} highlightNew />
   </Section>

@@ -1,6 +1,7 @@
 ---
 import type { Note } from "stores/notes";
 import { DateTime } from "luxon";
+import TimelineGroup from "components/notes/TimelineGroup.astro";
 
 type Props = {
   highlightNew: boolean;
@@ -9,49 +10,70 @@ type Props = {
 
 const { highlightNew = false, notes = [] } = Astro.props;
 
-const isNewNote = (note: Note) =>
-  highlightNew &&
-  DateTime.now().minus({ days: 40 }) <
-    DateTime.fromJSDate(note.data.publishedOn!);
-
 const isDraft = (note: Note) => !note.data.publishedOn;
 
-const getPublishedDate = (note: Note) =>
-  note.data.publishedOn?.toLocaleDateString("en-US", {
-    timeZone: "UTC",
-    year: "numeric",
-    month: "long",
-  }) ?? "";
+const getMonthLabel = (note: Note) =>
+  note.data.publishedOn
+    ? DateTime.fromJSDate(note.data.publishedOn).toUTC().toFormat("LLLL yyyy")
+    : "Unpublished";
+
+const getMonthGroups = (notes: Note[]) => {
+  const groups: { label: string; notes: Note[] }[] = [];
+
+  notes.forEach((note) => {
+    const label = getMonthLabel(note);
+    const currentGroup = groups[groups.length - 1];
+
+    if (!currentGroup || currentGroup.label !== label) {
+      groups.push({ label, notes: [note] });
+      return;
+    }
+
+    currentGroup.notes.push(note);
+  });
+
+  return groups;
+};
+
+const featuredSlug = notes.find((note) => note.data.isFeatured)?.slug;
 ---
 
 {
   0 < notes.length ? (
-    <ul class="w-full flex flex-col gap-1 sm:gap-0.5">
-      {notes.map((note) => (
-        <li>
-          <a
-            href={`/notes/${note.slug}`}
-            class="group nounderline flex flex-col gap-0.5 sm:gap-0 sm:flex-row sm:justify-between"
-          >
-            <span class="text-xl group-hover:underline text-blue-300 group-hover:text-blue-400">
-              {note.data.title}
-            </span>
-            {isDraft(note) ? (
-              <span class="bg-fg-2 text-bg-1 text-[0.675rem] uppercase tracking-wide leading-none rounded px-1 py-1 self-start sm:self-center">
-                Draft
-              </span>
-            ) : isNewNote(note) ? (
-              <span class="flex flex-row items-center gap-2 text-base font-medium">
-                {getPublishedDate(note)}
-                <span class="bg-fg-2 text-bg-1 text-[0.675rem] uppercase tracking-wide leading-none rounded px-1 py-0.5">
-                  New!
-                </span>
-              </span>
-            ) : (
-              <span class="text-base">{getPublishedDate(note)}</span>
-            )}
-          </a>
-        </li>
+    <ul class="w-full flex flex-col gap-0">
+      {getMonthGroups(notes).map((group) => (
+        <TimelineGroup header={group.label}>
+          <ul class="flex flex-col gap-8 sm:gap-6">
+            {group.notes.map((note) => (
+              <li>
+                <a href={`/notes/${note.slug}`} class="group block nounderline">
+                  <div class="flex flex-col">
+                    <span
+                      class:list={[
+                        "text-2xl group-hover:underline",
+                        note.slug === featuredSlug
+                          ? "text-orange-400 group-hover:text-orange-500 sm:text-blue-300 sm:group-hover:text-blue-400"
+                          : "text-blue-300 group-hover:text-blue-400",
+                      ]}
+                    >
+                      {note.data.title}
+                    </span>
+                    {note.data.description ? (
+                      <p class="text-base text-fg-2/80 leading-snug">
+                        {note.data.description}
+                      </p>
+                    ) : null}
+                    {isDraft(note) ? (
+                      <span class="bg-fg-2 text-bg-1 text-[0.675rem] uppercase tracking-wide leading-none rounded px-1 py-1 self-start">
+                        Draft
+                      </span>
+                    ) : null}
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </TimelineGroup>
       ))}
     </ul>
   ) : (

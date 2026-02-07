@@ -1,39 +1,36 @@
 ---
-import Section from "components/controls/Section.astro";
 import NoteList from "components/notes/NoteList.astro";
 import Hero from "components/controls/Hero.astro";
 import FeaturedNote from "./FeaturedNote.astro";
 import type { Note } from "stores/notes";
+import Prose from "components/controls/Prose.astro";
 
 type Props = {
-  notesByYear: {
-    title: string;
-    notes: Note[];
-  }[];
+  notes: Note[];
 };
 
-const { notesByYear = [] } = Astro.props;
+const { notes = [] } = Astro.props;
 ---
 
 <Hero title="Notes">
-  <p>
-    I write about the things I learn here. Don't be surprised if you never see
-    the same topic covered twice.
-  </p>
-  <FeaturedNote class="mt-12" />
+  <Prose>
+    <p>
+      I write about the things I learn here. Don't be surprised if you never see
+      the same topic covered twice.
+    </p>
+  </Prose>
 </Hero>
 
 {
-  notesByYear.length === 0 ? (
+  notes.length === 0 ? (
     <>
       <h2>Looks like there's nothing here yet.</h2>
       <p>Come back later to see what I've been cooking up!</p>
     </>
   ) : (
-    notesByYear.map(({ title, notes }) => (
-      <Section {title}>
-        <NoteList highlightNew {notes} />
-      </Section>
-    ))
+    <div class="w-full px-3">
+      <FeaturedNote class="mb-10 hidden sm:block" />
+      <NoteList highlightNew {notes} />
+    </div>
   )
 }

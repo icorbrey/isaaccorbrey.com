@@ -1,6 +1,7 @@
 ---
 import { DateTime } from "luxon";
 import type { RamblingSummary } from "utils/ramblings";
+import TimelineGroup from "components/notes/TimelineGroup.astro";
 
 type Props = {
   highlightNew?: boolean;
@@ -19,33 +20,52 @@ const formatDate = (iso?: string) =>
   iso
     ? DateTime.fromISO(iso, { zone: "utc" }).toFormat("yyyy-LL-dd")
     : "";
+
+const getMonthLabel = (rambling: RamblingSummary) =>
+  rambling.publishedAt
+    ? DateTime.fromISO(rambling.publishedAt, { zone: "utc" }).toFormat("LLLL yyyy")
+    : "Unpublished";
+
+const getMonthGroups = (ramblings: RamblingSummary[]) => {
+  const groups: { label: string; ramblings: RamblingSummary[] }[] = [];
+
+  ramblings.forEach((rambling) => {
+    const label = getMonthLabel(rambling);
+    const currentGroup = groups[groups.length - 1];
+
+    if (!currentGroup || currentGroup.label !== label) {
+      groups.push({ label, ramblings: [rambling] });
+      return;
+    }
+
+    currentGroup.ramblings.push(rambling);
+  });
+
+  return groups;
+};
 ---
 
 {ramblings.length === 0 ? (
   <p class="text-lg">Nothing here yet.</p>
 ) : (
-  <ul class="w-full flex flex-col gap-1 sm:gap-0.5">
-    {ramblings.map((rambling) => (
-      <li>
-        <a
-          href={`/ramblings/${rambling.path}`}
-          class="group nounderline flex flex-col gap-0.5 sm:gap-0 sm:flex-row sm:justify-between"
-        >
-          <span class="text-xl group-hover:underline text-blue-300 group-hover:text-blue-400">
-            {rambling.title}
-          </span>
-          {rambling.publishedAt && isNew(rambling) ? (
-            <span class="flex flex-row items-center gap-2 text-base font-medium">
-              {formatDate(rambling.publishedAt)}
-              <span class="bg-fg-2 text-bg-1 text-[0.6rem] uppercase tracking-wide leading-none rounded px-1 py-0.5">
-                New!
-              </span>
-            </span>
-          ) : rambling.publishedAt ? (
-            <span class="text-base">{formatDate(rambling.publishedAt)}</span>
-          ) : null}
-        </a>
-      </li>
+  <ul class="w-full flex flex-col gap-0">
+    {getMonthGroups(ramblings).map((group) => (
+      <TimelineGroup header={group.label}>
+        <ul class="flex flex-col gap-3">
+          {group.ramblings.map((rambling) => (
+            <li>
+              <a
+                href={`/ramblings/${rambling.path}`}
+                class="group block nounderline text-lg leading-tight text-fg-2/70"
+              >
+                <span class="text-blue-300 group-hover:text-blue-400 group-hover:underline">
+                  {rambling.title}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </TimelineGroup>
     ))}
   </ul>
 )}
