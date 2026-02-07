@@ -1,9 +1,9 @@
 ---
 import NoteListPage from "components/notes/NoteListPage.astro";
-import { noteStore } from "stores/notes";
+import { getAllNotes } from "stores/notes";
 import Root from "layouts/Root.astro";
 
-const notesByYear = await noteStore.getByYear({
+const notes = await getAllNotes({
 	includeDrafts: import.meta.env.DEV,
 });
 ---
@@ -13,5 +13,5 @@ const notesByYear = await noteStore.getByYear({
 	title="Notes"
 	path="/notes"
 >
-	<NoteListPage {notesByYear} />
+	<NoteListPage {notes} />
 </Root>

@@ -1,0 +1,29 @@
+---
+type Props = {
+  header: string;
+};
+
+const { header } = Astro.props;
+---
+
+<li class="group/timeline grid grid-cols-[0.6rem_1fr] gap-2.5 sm:grid-cols-[1rem_1fr] sm:gap-4">
+  <div class="relative flex h-full justify-center">
+    <span
+      class="absolute inset-y-0 left-1/2 -translate-x-1/2 border-l border-solid border-fg-2/30 z-0 group-first/timeline:inset-y-auto group-first/timeline:top-2 group-first/timeline:bottom-0"
+      aria-hidden="true"
+    ></span>
+    <span
+      class="relative mt-0.5 flex h-5 w-5 items-center justify-center z-10"
+      aria-hidden="true"
+    >
+      <span class="absolute inset-0 rounded-full bg-bg-1"></span>
+      <span class="relative h-1.5 w-1.5 rounded-full bg-fg-2/60"></span>
+    </span>
+  </div>
+  <div class="flex flex-col gap-3 pb-10 group-last/timeline:pb-6">
+    <div class="text-sm font-medium uppercase tracking-wide text-fg-2/50 pb-4 sm:pb-2">
+      {header}
+    </div>
+    <slot />
+  </div>
+</li>

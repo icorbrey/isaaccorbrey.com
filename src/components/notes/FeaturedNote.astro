@@ -18,9 +18,9 @@ const href = `/notes/${note?.slug}`;
 ---
 
 {!!note && (
-  <a {href} class:list={["w-full bg-bg-2 p-2 sm:p-4 rounded-xl hover:bg-bg-3 transition border-2 border-ui-2 flex flex-col gap-4", className]}>
+  <a {href} class:list={["w-full bg-bg-2 py-4 px-2 sm:px-4 sm:py-6 rounded-xl hover:bg-bg-3 transition border-2 border-ui-2 flex flex-col gap-4", className]}>
     <div class="flex flex-col sm:flex-row gap-2 justify-between items-start w-full">
-      <h1 class="text-2xl">
+      <h1 class="text-2xl text-orange-400">
         {note.data.title}
       </h1>
       <span class="bg-orange-400 text-bg-1 text-[0.865rem] uppercase tracking-wide leading-none rounded px-1.5 py-1">
