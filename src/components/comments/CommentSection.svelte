@@ -8,7 +8,7 @@
   let showAll = false;
 </script>
 
-<section class="mt-8">
+<section class="mt-12">
   {#if 0 < thread.totalReplyCount}
     <h1 class="text-4xl font-bold text-fg-1 px-3">
       {thread.totalReplyCount} Comment{thread.totalReplyCount !== 1 ? "s" : ""}
