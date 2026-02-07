@@ -1,0 +1,87 @@
+---
+import CommentSectionShell from "components/comments/CommentSectionShell.astro";
+import { getRamblingBySlug, renderRambling } from "utils/ramblings";
+import SupportFooter from "components/controls/SupportFooter.astro";
+import DotSeparated from "components/controls/DotSeparated.astro";
+import TagLink from "components/tags/TagLink.astro";
+import Prose from "components/controls/Prose.astro";
+import Root from "layouts/Root.astro";
+import { DateTime } from "luxon";
+
+const slug = Astro.params.slug!;
+const { record, redirectPath } = await getRamblingBySlug(slug);
+
+if (redirectPath) {
+  return Astro.redirect(`/ramblings/${redirectPath}`, 302);
+}
+
+if (!record) {
+  return Astro.rewrite("/404");
+}
+
+const rambling = await renderRambling(record);
+
+const parseDate = (iso?: string) => {
+  if (!iso) return null;
+  const parsed = DateTime.fromISO(iso, { zone: "utc" });
+  return parsed.isValid ? parsed : null;
+};
+
+const formatDate = (iso?: string) => {
+  const parsed = parseDate(iso);
+  return parsed
+    ? parsed.toLocaleString({
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
+};
+
+const publishedDate = parseDate(rambling.publishedAt)?.toJSDate();
+---
+
+<Root
+  description={rambling.description}
+  title={rambling.title}
+  path={`/ramblings/${rambling.path}`}
+  type="article"
+  documentUri={rambling.documentUri}
+  properties={{
+    "article:published_time": publishedDate,
+    "article:section": "Ramblings",
+  }}
+>
+  <article class="w-full px-3 pb-16">
+    <header class="flex flex-col gap-2 py-16">
+      <h1 class="text-4xl sm:text-5xl font-bold text-fg-1">
+        {rambling.title}
+      </h1>
+      <ul class="-mt-1 sm:mt-0 flex flex-row flex-wrap gap-x-3">
+        {rambling.tags.map((tag) => (
+          <li>
+            <TagLink href={`/tags/${tag}`}>{tag}</TagLink>
+          </li>
+        ))}
+      </ul>
+      {rambling.publishedAt && (
+        <p aria-hidden="true" class="mt-2 text-lg flex flex-row flex-wrap">
+          <DotSeparated>Published on {formatDate(rambling.publishedAt)}</DotSeparated>
+          {!!rambling.readingTime && (
+            <DotSeparated>{rambling.readingTime}</DotSeparated>
+          )}
+        </p>
+      )}
+      {!rambling.publishedAt && rambling.readingTime && (
+        <p aria-hidden="true" class="mt-2 text-lg flex flex-row flex-wrap">
+          <DotSeparated>{rambling.readingTime}</DotSeparated>
+        </p>
+      )}
+    </header>
+    <Prose>
+      <div set:html={rambling.html} />
+    </Prose>
+    <SupportFooter />
+    <CommentSectionShell uri={rambling.blueskyPostUri} />
+  </article>
+</Root>

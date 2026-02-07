@@ -1,0 +1,65 @@
+---
+import Root from "layouts/Root.astro";
+import Hero from "components/controls/Hero.astro";
+import { getRamblingsIndex, getRamblingsPublication } from "utils/ramblings";
+import RamblingList from "components/ramblings/RamblingList.astro";
+import Section from "components/controls/Section.astro";
+import { DateTime } from "luxon";
+
+const ramblings = await getRamblingsIndex();
+const publication = await getRamblingsPublication();
+
+const groupedRamblings = ramblings.reduce(
+  (acc, rambling) => {
+    if (!rambling.publishedAt) {
+      acc.undated.push(rambling);
+      return acc;
+    }
+
+    const date = DateTime.fromISO(rambling.publishedAt, { zone: "utc" });
+    if (!date.isValid) {
+      acc.undated.push(rambling);
+      return acc;
+    }
+
+    const key = date.toFormat("yyyy-LL");
+    const label = date.toFormat("LLLL yyyy");
+    const bucket = acc.byMonth.get(key) ?? { title: label, ramblings: [] };
+    bucket.ramblings.push(rambling);
+    acc.byMonth.set(key, bucket);
+    return acc;
+  },
+  {
+    byMonth: new Map<string, { title: string; ramblings: typeof ramblings }>(),
+    undated: [] as typeof ramblings,
+  },
+);
+
+const monthGroups = Array.from(groupedRamblings.byMonth.entries())
+  .sort(([a], [b]) => (a > b ? -1 : 1))
+  .map(([, group]) => group);
+
+---
+
+<Root
+  description={publication.description}
+  title={publication.title}
+  path="/ramblings"
+>
+  <Hero title={publication.title}>
+    {publication.description && <p>{publication.description}</p>}
+  </Hero>
+
+  <div class="w-full pb-16">
+    {monthGroups.map((group) => (
+      <Section title={group.title}>
+        <RamblingList ramblings={group.ramblings} highlightNew />
+      </Section>
+    ))}
+    {groupedRamblings.undated.length > 0 && (
+      <Section title="Undated">
+        <RamblingList ramblings={groupedRamblings.undated} highlightNew />
+      </Section>
+    )}
+  </div>
+</Root>

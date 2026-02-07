@@ -1,5 +1,6 @@
 ---
-import CommentLoader from "components/comments/CommentLoader.svelte";
+import CommentSectionShell from "components/comments/CommentSectionShell.astro";
+import SupportFooter from "components/controls/SupportFooter.astro";
 import type { NoteFrontmatter } from "stores/notes";
 import Prose from "components/controls/Prose.astro";
 import NoteHeader from "./NoteHeader.astro";
@@ -13,25 +14,6 @@ type Props = {
 
 const { frontmatter, tagDescriptions } = Astro.props;
 
-const kofi = "https://ko-fi.com/icorbrey";
-const liberapay = "https://liberapay.com/isaaccorbrey.com"
-
-function joinReviewers(nodes: any[]) {
-  const n = nodes.length;
-
-  if (n === 0) return null;
-  if (n === 1) return nodes[0];
-  if (n === 2) return [nodes[0], " and ", nodes[1]];
-  
-  const parts: any[] = [];
-  for (let i = 0; i < n; i++) {
-    parts.push(nodes[i]);
-    if (i < n - 2) parts.push(", ");
-    else if (i === n - 2) parts.push(", and ");
-  }
-
-  return parts;
-}
 ---
 
 <article class="w-full">
@@ -47,36 +29,8 @@ function joinReviewers(nodes: any[]) {
     <Prose>
       <slot />
     </Prose>
-    <div class="mt-8 flex flex-row bg-bg-2 p-6 rounded-xl">
-      <Prose>
-        {0 < frontmatter.reviewers?.length && (
-          <p>
-            Special thanks to{" "}
-            {joinReviewers(frontmatter.reviewers.map(({ link, display }) => (
-              !! link ? <a href={link}>{display}</a> : display
-            )))}
-            {" "}
-            for reading early drafts and sharing
-            their feedback! We all see further by standing on the shoulders of
-            giants.
-          </p>
-        )}
-        <p>
-          I like building tools, breaking workflows, and putting them back together
-          better. If you enjoy my work and want to support it, you can
-          <a href={kofi}>buy me a coffee ☕</a> or <a href={liberapay}>support
-          me on Liberapay 💛</a>.
-        </p>
-      </Prose>
-    </div>
+    <SupportFooter reviewers={frontmatter.reviewers} />
   </div>
   <!-- <TripleDots /> -->
-  {
-    !!frontmatter.blueskyPostUri ?
-      <CommentLoader uri={frontmatter.blueskyPostUri} client:load />
-    : <p class="mt-8 px-3 text-lg text-fg-3">
-        Fastest click in the West! Looks like you opened the page before I add
-        the comment section. Reload to see it!
-      </p>
-  }
+  <CommentSectionShell uri={frontmatter.blueskyPostUri} />
 </article>

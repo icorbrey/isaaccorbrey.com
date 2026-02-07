@@ -1,16 +1,20 @@
 ---
+import RamblingList from "components/ramblings/RamblingList.astro";
+import FeaturedNote from "components/notes/FeaturedNote.astro";
 import Section from "components/controls/Section.astro";
 import NoteList from "components/notes/NoteList.astro";
+import { getRamblingsIndex } from "utils/ramblings";
+import Prose from "components/controls/Prose.astro";
 import Hero from "components/controls/Hero.astro";
 import { noteStore } from "stores/notes";
 import Root from "layouts/Root.astro";
-import FeaturedNote from "components/notes/FeaturedNote.astro";
-import Prose from "components/controls/Prose.astro";
 
 const notes = await noteStore.getRecent({
   includeDrafts: import.meta.env.DEV,
   limit: 10,
 });
+
+const ramblings = (await getRamblingsIndex()).slice(0, 10);
 
 const description = "I like building tools, breaking workflows, and putting "
   + "them back together better.";
@@ -19,6 +23,7 @@ const links = {
   atproto: "https://atproto.com",
   jujutsu: "https://jj-vcs.dev",
 }
+
 ---
 
 <Root {description}>
@@ -37,5 +42,12 @@ const links = {
   <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
     <FeaturedNote class="my-2" />
     <NoteList {notes} highlightNew />
+  </Section>
+  <Section
+    title="Ramblings"
+    link={{ text: "All ramblings", href: "/ramblings" }}
+    class="mt-20 gap-6"
+  >
+    <RamblingList ramblings={ramblings} highlightNew />
   </Section>
 </Root>

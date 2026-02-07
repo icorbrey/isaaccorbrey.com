@@ -3,6 +3,7 @@ import { z } from "astro:content";
 
 const schema = z.object({
   title: z.string(),
+  class: z.string().optional(),
   link: z
     .object({
       text: z.string(),
@@ -12,24 +13,25 @@ const schema = z.object({
 });
 
 type Props = z.input<typeof schema>;
-const { title, link } = schema.parse(Astro.props);
+const { title, link, class: className } = schema.parse(Astro.props);
 ---
 
 <section
-  class="w-full flex flex-col items-stretch gap-4 px-3 mt-10 first-of-type:mt-0"
+  class:list={[
+    "w-full flex flex-col items-stretch gap-4 px-3 mt-10 first-of-type:mt-0",
+    className,
+  ]}
 >
   <div class="flex flex-row items-center justify-between">
     <h2 class="text-3xl font-bold text-fg-1">{title}</h2>
-    {
-      !!link && (
-        <a
-          href={link.href}
-          class="px-3.5 py-1 border rounded-md text-fg-3 border-fg-4 hover:text-fg-2 hover:border-fg-3"
-        >
-          {link.text}
-        </a>
-      )
-    }
+    {!!link && (
+      <a
+        href={link.href}
+        class="px-3.5 py-1 border rounded-md text-fg-3 border-fg-4 hover:text-fg-2 hover:border-fg-3"
+      >
+        {link.text}
+      </a>
+    )}
   </div>
   <slot />
 </section>

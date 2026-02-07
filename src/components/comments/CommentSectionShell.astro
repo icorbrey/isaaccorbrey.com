@@ -1,0 +1,20 @@
+---
+import CommentLoader from "components/comments/CommentLoader.svelte";
+import { z } from "astro:content";
+
+const schema = z.object({
+  uri: z.string().optional(),
+});
+
+type Props = z.input<typeof schema>;
+const { uri } = schema.parse(Astro.props);
+---
+
+{uri ? (
+  <CommentLoader uri={uri} client:load />
+) : (
+  <p class="mt-8 text-lg text-fg-3">
+    Fastest click in the West! Looks like you opened the page before I add the
+    comment section. Reload to see it!
+  </p>
+)}

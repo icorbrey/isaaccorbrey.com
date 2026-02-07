@@ -3,6 +3,7 @@ import TagListing from "components/tags/TagListing.astro";
 import { noteStore } from "stores/notes";
 import { tagStore } from "stores/tags";
 import Root from "layouts/Root.astro";
+import { getRamblingsIndex } from "utils/ramblings";
 
 const slug = Astro.params.slug!;
 
@@ -11,11 +12,14 @@ const notes = await noteStore.getTagged({
 	includeDrafts: import.meta.env.DEV,
 	tags: [slug],
 });
+const ramblings = (await getRamblingsIndex()).filter((rambling) =>
+	rambling.tags.includes(slug),
+);
 
 const title = `#${slug}`;
 const description = tag?.data?.description;
 ---
 
 <Root {title} {description} path={`/tags/${slug}`}>
-	<TagListing tag={slug} {description} {notes} />
+	<TagListing tag={slug} {description} {notes} {ramblings} />
 </Root>

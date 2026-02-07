@@ -8,6 +8,7 @@ const layoutProps = z.object({
 	image: z.string().default("https://isaaccorbrey.com/profile.png"),
 	properties: articleSchema.default({}),
 	type: z.string().default("website"),
+	documentUri: z.string().optional(),
 	title: z.string().optional(),
 	path: z
 		.string()
@@ -61,6 +62,9 @@ const siteName = "Isaac Corbrey";
 		}
 		<meta property="og:image" content={props.image} />
 		<meta property="og:type" content={props.type} />
+		{props.documentUri && (
+			<link rel="site.standard.document" href={props.documentUri} />
+		)}
 		{
 			Object.entries(props.properties).map(([key, content]) =>
 				[]
