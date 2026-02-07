@@ -3,17 +3,27 @@ import Section from "components/controls/Section.astro";
 import NoteList from "components/notes/NoteList.astro";
 import TagHeader from "./TagHeader.astro";
 import type { Note } from "stores/notes";
+import RamblingList from "components/ramblings/RamblingList.astro";
+import type { RamblingSummary } from "utils/ramblings";
 
 type Props = {
   description?: string;
   notes?: Note[];
+  ramblings?: RamblingSummary[];
   tag: string;
 };
 
-const { description, notes = [], tag } = Astro.props;
+const { description, notes = [], ramblings = [], tag } = Astro.props;
 ---
 
 <TagHeader {tag} {description} />
 <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
   <NoteList highlightNew {notes} />
+</Section>
+<Section
+  title="Ramblings"
+  link={{ text: "All ramblings", href: "/ramblings" }}
+  class="mt-16"
+>
+  <RamblingList highlightNew ramblings={ramblings} />
 </Section>
