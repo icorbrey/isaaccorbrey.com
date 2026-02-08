@@ -52,36 +52,38 @@ const publishedDate = parseDate(rambling.publishedAt)?.toJSDate();
     "article:section": "Ramblings",
   }}
 >
-  <article class="w-full px-3 pb-16">
-    <header class="flex flex-col gap-2 py-16">
-      <h1 class="text-4xl sm:text-5xl font-bold text-fg-1">
-        {rambling.title}
-      </h1>
-      <ul class="-mt-1 sm:mt-0 flex flex-row flex-wrap gap-x-3">
-        {rambling.tags.map((tag) => (
-          <li>
-            <TagLink href={`/tags/${tag}`}>{tag}</TagLink>
-          </li>
-        ))}
-      </ul>
-      {rambling.publishedAt && (
-        <p aria-hidden="true" class="mt-2 text-lg flex flex-row flex-wrap">
-          <DotSeparated>Published on {formatDate(rambling.publishedAt)}</DotSeparated>
-          {!!rambling.readingTime && (
+  <article class="w-full pb-16">
+    <div class="px-3">
+      <header class="flex flex-col gap-2 py-16">
+        <h1 class="text-4xl sm:text-5xl font-bold text-fg-1">
+          {rambling.title}
+        </h1>
+        <ul class="-mt-1 sm:mt-0 flex flex-row flex-wrap gap-x-3">
+          {rambling.tags.map((tag) => (
+            <li>
+              <TagLink href={`/tags/${tag}`}>{tag}</TagLink>
+            </li>
+          ))}
+        </ul>
+        {rambling.publishedAt && (
+          <p aria-hidden="true" class="mt-2 text-lg flex flex-row flex-wrap">
+            <DotSeparated>Published on {formatDate(rambling.publishedAt)}</DotSeparated>
+            {!!rambling.readingTime && (
+              <DotSeparated>{rambling.readingTime}</DotSeparated>
+            )}
+          </p>
+        )}
+        {!rambling.publishedAt && rambling.readingTime && (
+          <p aria-hidden="true" class="mt-2 text-lg flex flex-row flex-wrap">
             <DotSeparated>{rambling.readingTime}</DotSeparated>
-          )}
-        </p>
-      )}
-      {!rambling.publishedAt && rambling.readingTime && (
-        <p aria-hidden="true" class="mt-2 text-lg flex flex-row flex-wrap">
-          <DotSeparated>{rambling.readingTime}</DotSeparated>
-        </p>
-      )}
-    </header>
-    <Prose>
-      <div set:html={rambling.html} />
-    </Prose>
-    <SupportFooter />
+          </p>
+        )}
+      </header>
+      <Prose>
+        <div set:html={rambling.html} />
+      </Prose>
+      <SupportFooter />
+    </div>
     <CommentSectionShell uri={rambling.blueskyPostUri} />
   </article>
 </Root>

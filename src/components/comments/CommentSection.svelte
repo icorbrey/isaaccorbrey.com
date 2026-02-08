@@ -4,6 +4,7 @@
   import Comment from "./Comment.svelte";
 
   export let thread: BlueskyThread;
+  export let newCount = 0;
 
   let showAll = false;
 </script>
@@ -12,6 +13,11 @@
   {#if 0 < thread.totalReplyCount}
     <h1 class="text-4xl font-bold text-fg-1 px-3">
       {thread.totalReplyCount} Comment{thread.totalReplyCount !== 1 ? "s" : ""}
+      {#if newCount > 0}
+        <span class="text-4xl text-orange-400">
+          (+{newCount} new)
+        </span>
+      {/if}
     </h1>
     <p class="mt-2 text-xl px-3">
       Join the conversation
@@ -37,13 +43,13 @@
   <ul class="mt-8">
     {#if thread.replies.length < 6 || showAll}
       {#each thread.replies as reply}
-        <li class="mt-0.5 first:mt-0">
+        <li class="mt-1 first:mt-0">
           <Comment comment={reply} />
         </li>
       {/each}
     {:else}
       {#each thread.replies.slice(0, 4) as reply}
-        <li class="mt-0.5 first:mt-0">
+        <li class="mt-1 first:mt-0">
           <Comment comment={reply} />
         </li>
       {/each}
