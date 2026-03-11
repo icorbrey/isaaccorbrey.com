@@ -5,3 +5,9 @@ publish = "dist"
 [build.environment]
 NODE_VERSION = "20"
 PNPM_VERSION = "10.26.1"
+
+[[headers]]
+for = "/.well-known/*"
+
+  [headers.values]
+  Access-Control-Allow-Origin = "*"
