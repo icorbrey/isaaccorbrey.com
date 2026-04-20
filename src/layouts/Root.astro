@@ -16,7 +16,9 @@ const layoutProps = z.object({
 		.default(""),
 	description: z
 		.string()
-		.transform((d) => d.trim())
+		.transform((d) => d.trim()
+			.replace(/([^\n])\n(?!\n)/g, "$1 ")
+			.replace(/\n{2,}/g, "\n"))
 		.optional(),
 });
 
