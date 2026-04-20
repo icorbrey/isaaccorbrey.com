@@ -260,7 +260,8 @@ jj rebase
         # so that they come after y (e.g. trunk())...
         --after y
             # and become a parent of the megamerge.
-            --before megamerge ```
+            --before megamerge
+```
 
 <figure>
   <script src="https://asciinema.org/a/954708.js" id="asciicast-954708" async="true"></script>
