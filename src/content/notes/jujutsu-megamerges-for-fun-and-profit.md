@@ -19,8 +19,9 @@ reviewers:
   - display: 789.ha
   - display: Philip Metzger
     link: https://philipmetzger.github.io/
-publishedOn: 2026-02-05
+publishedOn: 2026-04-20
 isFeatured: true
+blueskyPostUri: at://did:plc:zviscnpwyvj6y32agi5davn5/app.bsky.feed.post/3mjxfw4kvuc2f
 ---
 
 _This article is written both for intermediate Jujutsu users and for Git users
