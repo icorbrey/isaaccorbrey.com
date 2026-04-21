@@ -1,6 +1,7 @@
 ---
 import { noteStore, type NoteFrontmatter } from "stores/notes";
 import { fetchBlueskyPostUri } from "utils/ramblings";
+import { getPageViews } from "utils/umami";
 import NotePage from "components/notes/NotePage.astro";
 import { tagStore } from "stores/tags";
 import Root from "layouts/Root.astro";
@@ -29,6 +30,8 @@ const tagDescriptions = (await tagStore.getAll()).filter(({ id }) =>
 const blueskyPostUri = frontmatter.atUri
 	? await fetchBlueskyPostUri(frontmatter.atUri)
 	: undefined;
+
+const viewCount = await getPageViews(`/notes/${slug}`);
 ---
 
 <Root
@@ -44,7 +47,7 @@ const blueskyPostUri = frontmatter.atUri
 		"article:section": "Notes",
 	}}
 >
-	<NotePage {frontmatter} {tagDescriptions} {blueskyPostUri}>
+	<NotePage {frontmatter} {tagDescriptions} {blueskyPostUri} {viewCount}>
 		<Content />
 	</NotePage>
 </Root>

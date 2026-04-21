@@ -7,6 +7,7 @@ type Props = {
   tagDescriptions: Tag[];
   readingTime: string;
   publishedOn?: Date;
+  viewCount?: number;
   tags: string[];
   title: string;
 };
@@ -15,6 +16,7 @@ const {
   publishedOn,
   tagDescriptions,
   readingTime,
+  viewCount,
   tags = [],
   title,
 } = Astro.props;
@@ -51,9 +53,11 @@ const _tags = tags.map((tag) => ({
   <p aria-hidden="true" class="mt-4 text-lg hidden sm:flex">
     <DotSeparated>{dateText}</DotSeparated>
     <DotSeparated>{readingTime}</DotSeparated>
+    {viewCount !== undefined && <DotSeparated>{viewCount.toLocaleString()} views</DotSeparated>}
   </p>
   <p aria-hidden="true" class="mt-2 flex flex-col sm:hidden text-md">
     <span>{dateText}</span>
     <span class="-mt-1">{readingTime}</span>
+    {viewCount !== undefined && <span class="-mt-1">{viewCount.toLocaleString()} views</span>}
   </p>
 </header>
