@@ -745,4 +745,21 @@ export const renderRambling = async (
   };
 };
 
+export const fetchBlueskyPostUri = async (atUri: string): Promise<string | undefined> => {
+  const parsed = parseAtUri(atUri);
+  if (!parsed) return undefined;
+
+  const { pdsUrl } = await getCache();
+  const url = new URL(`${pdsUrl}/xrpc/com.atproto.repo.getRecord`);
+  url.searchParams.set("repo", parsed.repo);
+  url.searchParams.set("collection", parsed.collection);
+  url.searchParams.set("rkey", parsed.rkey);
+
+  const res = await fetch(url, { headers: { Accept: "application/json" } });
+  if (!res.ok) return undefined;
+
+  const data = (await res.json()) as { value?: Record<string, any> };
+  return data.value?.bskyPostRef?.uri;
+};
+
 export type { RamblingSummary };

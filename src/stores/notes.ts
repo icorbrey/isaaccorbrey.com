@@ -3,12 +3,12 @@ import { buildQuery } from "../utils/query";
 
 export const noteSchema = z.object({
 	isFeatured: z.boolean().default(false),
-	blueskyPostUri: z.string().optional(),
 	tags: z.array(z.string()).default([]),
 	description: z.string().optional(),
 	publishedOn: z.date().optional(),
 	imageUrl: z.string().optional(),
 	videoUrl: z.string().optional(),
+	atUri: z.string().optional(),
 	title: z.string(),
 	reviewers: z.array(z.object({
 		link: z.string().url().optional(),

@@ -21,7 +21,7 @@ reviewers:
     link: https://philipmetzger.github.io/
 publishedOn: 2026-04-20
 isFeatured: true
-blueskyPostUri: at://did:plc:zviscnpwyvj6y32agi5davn5/app.bsky.feed.post/3mjxfw4kvuc2f
+atUri: at://did:plc:zviscnpwyvj6y32agi5davn5/site.standard.document/3mjyv3u22t42s
 ---
 
 _This article is written both for intermediate Jujutsu users and for Git users
@@ -276,21 +276,21 @@ fix, then it's even simpler! Using a few aliases, I can super easily include new
 changes in my megamerge:[^3]
 
 [^3]:
-	Aliases are a super powerful part of Jujutsu. There are two types you should
-  look into: [revset aliases], which allow you to create custom functions which
-  return one or more commits with the [revset language], and [command aliases],
-  which let you extend Jujutsu's default functionality and add your own.
+	  Aliases are a super powerful part of Jujutsu. There are two types you should
+    look into: [revset aliases], which allow you to create custom functions which
+    return one or more commits with the [revset language], and [command aliases],
+    which let you extend Jujutsu's default functionality and add your own.
 
-  There are also template aliases which let you change how Jujutsu logs to
-  the terminal using the [templating language], and fileset aliases, which act
-  similarly to revset aliases but act on files instead of revisions using the
-  [fileset language].
+    There are also template aliases which let you change how Jujutsu logs to
+    the terminal using the [templating language], and fileset aliases, which act
+    similarly to revset aliases but act on files instead of revisions using the
+    [fileset language].
 
-[revset aliases]: https://jj-vcs.github.io/jj/latest/revsets/#aliases
-[revset language]: https://jj-vcs.github.io/jj/latest/revsets
-[command aliases]: https://jj-vcs.github.io/jj/latest/config/#aliases
-[templating language]: https://docs.jj-vcs.dev/latest/templates
-[fileset language]: https://docs.jj-vcs.dev/latest/filesets
+    [revset aliases]: https://jj-vcs.github.io/jj/latest/revsets/#aliases
+    [revset language]: https://jj-vcs.github.io/jj/latest/revsets
+    [command aliases]: https://jj-vcs.github.io/jj/latest/config/#aliases
+    [templating language]: https://docs.jj-vcs.dev/latest/templates
+    [fileset language]: https://docs.jj-vcs.dev/latest/filesets
 
 ```toml
 [revset-aliases]
@@ -330,13 +330,13 @@ of changes after the megamerge:
 
 ```toml
 [aliases]
-stage = ["stack", "closest_merge(@).. ~ empty()"]
+stage = ["stack", "closest_merge(@)+:: ~ empty()"]
 ```
 
 ```ini
-closest_merge(@)..           # Return the descendants of the closest merge
-                             # commit to the working copy...
-                   ~ empty() # ...without any empty commits.
+closest_merge(@)+::           # Return the descendants of the closest merge
+                              # commit to the working copy...
+                    ~ empty() # ...without any empty commits.
 ```
 
 This one doesn't require any input! Just have your commits ready and stage 'em:
@@ -403,7 +403,7 @@ Kudos to [Stephen Jennings] for coming up with this awesome revset:
 
 ```toml
 [aliases]
-restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()"]
+restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()", "--simplify-parents"]
 ```
 
 ```ini
@@ -415,8 +415,10 @@ roots(                       # Get the furthest upstream commits...
 Rather than trying to rebase our entire working tree (like `jj rebase --onto
 trunk()` tries to do), this alias only targets commits we're actually allowed to
 move. This leaves behind branches that we don't control as well as work that's
-stacked on top of other people's branches. It has yet to fail me, even with
-monster ninefold mixed-contributor megamerges! (Say that five times fast.)
+stacked on top of other people's branches. With `--simplify-parents` we also can
+clean up any gross edges left behind by this process. It has yet to fail me,
+even with monster ninefold mixed-contributor megamerges! (Say that five times
+fast.)
 
 <figure>
   <script src="https://asciinema.org/a/954721.js" id="asciicast-954721" async="true"></script>
@@ -442,10 +444,10 @@ edit --user`:
 stack = ["rebase", "--after", "trunk()", "--before", "closest_merge(@)", "--revision"]
 
 # `jj stage` to include the whole stack after the megamerge
-stage = ["stack", "closest_merge(@).. ~ empty()"]
+stage = ["stack", "closest_merge(@)+:: ~ empty()"]
 
 # `jj restack` to rebase your changes onto `trunk()`
-restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()"]
+restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()", "--simplify-parents"]
 ```
 
 Use `absorb` and/or `squash --interactive` to get new changes into existing
@@ -505,3 +507,13 @@ Megamerges may not be everyone's cup of tea – I've certainly gotten a few
 horrified looks after showing my working tree – but once you try them, you'll
 likely find they let you bounce between tasks with almost no effort. Give them
 a try!
+
+## Errata
+
+- I completely forgot about `--simplify-parents` on `restack`! This makes it so
+  you can get a clean log after restacking your commits by eliminating redundant
+  edges (e.g. if A-B-C and A-C exist, `simplify-parents` will eliminate A-C).
+- `stage` should be using `closest_merge(@)+::`, not `closest_merge(@)..` as you
+  don't want to pull in everything from all time! `x..` does technically include
+  `x+::`, but it's equivalent to `~::x`, which includes **anything that isn't a
+  direct ancestor of `x`!**
