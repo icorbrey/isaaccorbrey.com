@@ -5,7 +5,7 @@ description: |
 tags: [astro, zod]
 publishedOn: 2024-11-07
 isFeatured: true
-blueskyPostUri: at://did:plc:zviscnpwyvj6y32agi5davn5/app.bsky.feed.post/3lafszk4cjj2n
+atUri: "at://did:plc:zviscnpwyvj6y32agi5davn5/site.standard.document/3mjyv3uczut2n"
 ---
 
 Hey all! This is the first post I've written in a while, and the first that'll

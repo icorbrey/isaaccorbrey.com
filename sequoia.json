@@ -1,14 +1,16 @@
 {
+  "$schema": "https://tangled.org/stevedylan.dev/sequoia/raw/main/sequoia.schema.json",
   "siteUrl": "https://isaaccorbrey.com/notes",
   "contentDir": "./src/content/notes",
   "outputDir": "./dist",
-  "pathPrefix": "/notes",
+  "pathPrefix": "",
   "publicationUri": "at://did:plc:zviscnpwyvj6y32agi5davn5/site.standard.publication/3me4txfib342s",
-  "pdsUrl": "https://ganoderma.us-west.host.bsky.network",
   "frontmatter": {
-    "publishDate": "publishedOn"
+    "publishDate": "publishedOn",
+    "draft": "isDraft"
   },
+  "publishContent": true,
   "bluesky": {
-    "enabled": true
+    "enabled": false
   }
 }

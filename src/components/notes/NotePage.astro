@@ -10,9 +10,10 @@ import type { Tag } from "stores/tags";
 type Props = {
   frontmatter: NoteFrontmatter;
   tagDescriptions: Tag[];
+  blueskyPostUri?: string;
 };
 
-const { frontmatter, tagDescriptions } = Astro.props;
+const { frontmatter, tagDescriptions, blueskyPostUri } = Astro.props;
 
 ---
 
@@ -32,5 +33,5 @@ const { frontmatter, tagDescriptions } = Astro.props;
     <SupportFooter reviewers={frontmatter.reviewers} />
   </div>
   <!-- <TripleDots /> -->
-  <CommentSectionShell uri={frontmatter.blueskyPostUri} />
+  <CommentSectionShell uri={blueskyPostUri} />
 </article>
