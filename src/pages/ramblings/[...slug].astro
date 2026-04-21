@@ -7,6 +7,7 @@ import TagLink from "components/tags/TagLink.astro";
 import Prose from "components/controls/Prose.astro";
 import Root from "layouts/Root.astro";
 import { DateTime } from "luxon";
+import { getPageViews } from "utils/umami";
 
 const slug = Astro.params.slug!;
 const { record, redirectPath } = await getRamblingBySlug(slug);
@@ -39,6 +40,7 @@ const formatDate = (iso?: string) => {
 };
 
 const publishedDate = parseDate(rambling.publishedAt)?.toJSDate();
+const viewCount = await getPageViews(`/ramblings/${rambling.path}`);
 ---
 
 <Root
@@ -71,11 +73,13 @@ const publishedDate = parseDate(rambling.publishedAt)?.toJSDate();
             {!!rambling.readingTime && (
               <DotSeparated>{rambling.readingTime}</DotSeparated>
             )}
+            {viewCount !== undefined && <DotSeparated>{viewCount.toLocaleString()} views</DotSeparated>}
           </p>
         )}
         {!rambling.publishedAt && rambling.readingTime && (
           <p aria-hidden="true" class="mt-2 text-lg flex flex-row flex-wrap">
             <DotSeparated>{rambling.readingTime}</DotSeparated>
+            {viewCount !== undefined && <DotSeparated>{viewCount.toLocaleString()} views</DotSeparated>}
           </p>
         )}
       </header>

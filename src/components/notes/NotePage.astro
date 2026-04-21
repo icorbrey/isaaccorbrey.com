@@ -11,9 +11,10 @@ type Props = {
   frontmatter: NoteFrontmatter;
   tagDescriptions: Tag[];
   blueskyPostUri?: string;
+  viewCount?: number;
 };
 
-const { frontmatter, tagDescriptions, blueskyPostUri } = Astro.props;
+const { frontmatter, tagDescriptions, blueskyPostUri, viewCount } = Astro.props;
 
 ---
 
@@ -25,6 +26,7 @@ const { frontmatter, tagDescriptions, blueskyPostUri } = Astro.props;
       title={frontmatter.title}
       tags={frontmatter.tags}
       {tagDescriptions}
+      {viewCount}
     />
     {!!frontmatter.videoUrl && <NoteVideo url={frontmatter.videoUrl} />}
     <Prose>
