@@ -11,6 +11,7 @@ const { description, tag } = schema.parse(Astro.props);
 ---
 
 <header class="py-16 sm:py-32 px-3">
+  <a href="/tags" class="text-sm text-fg-3 hover:text-fg-2 no-underline hover:underline font-code mb-4 block">← All tags</a>
   <h1 class="text-4xl font-code text-fg-1 underline mb-6">#{tag}</h1>
   <p class="mt-4 text-lg">
     {!!description ? <>{description}</> : <i>No description yet.</i>}

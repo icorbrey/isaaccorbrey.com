@@ -1,0 +1,74 @@
+---
+import Hero from "components/controls/Hero.astro";
+import Prose from "components/controls/Prose.astro";
+import TagLink from "./TagLink.astro";
+
+type TagEntry = {
+  description?: string;
+  count: number;
+  slug: string;
+};
+
+type Props = {
+  tagList: TagEntry[];
+};
+
+const { tagList } = Astro.props;
+
+const groups = tagList.reduce(
+  (acc, entry) => {
+    const letter = entry.slug[0].toUpperCase();
+    (acc[letter] ??= []).push(entry);
+    return acc;
+  },
+  {} as Record<string, TagEntry[]>,
+);
+
+const letters = Object.keys(groups).sort();
+for (const letter of letters) {
+  groups[letter].sort((a, b) => b.count - a.count);
+}
+---
+
+<Hero title="Tags">
+  <Prose>
+    <p>All tags used across notes and ramblings.</p>
+  </Prose>
+  <nav class="flex flex-wrap gap-x-3 gap-y-1 mt-6 font-code text-sm">
+    {letters.map((letter) => (
+      <a href={`#tags-${letter}`} class="text-fg-3 hover:text-fg-2 no-underline hover:underline">
+        {letter}
+      </a>
+    ))}
+  </nav>
+</Hero>
+
+<div class="w-full px-3 pb-16">
+  {
+    tagList.length === 0 ? (
+      <p class="text-lg text-fg-3">No tags found.</p>
+    ) : (
+      <div class="flex flex-col">
+        {letters.map((letter) => (
+            <div id={`tags-${letter}`} class="flex gap-8 py-3">
+              <span class="w-6 shrink-0 font-bold text-orange-400 font-code text-sm pt-0.5">
+                {letter}
+              </span>
+              <ul class="flex flex-col w-full">
+                {groups[letter].map(({ slug, count, description }) => (
+                  <li class="flex items-baseline justify-between gap-3 py-0.5">
+                    <TagLink href={`/tags/${slug}`} {description}>
+                      {slug}
+                    </TagLink>
+                    <span class="text-sm text-fg-3">
+                      {count} {count === 1 ? "page" : "pages"}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+      </div>
+    )
+  }
+</div>

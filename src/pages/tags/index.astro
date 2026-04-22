@@ -1,0 +1,41 @@
+---
+import TagIndexPage from "components/tags/TagIndexPage.astro";
+import { getAllNotes } from "stores/notes";
+import { getAllTags } from "stores/tags";
+import Root from "layouts/Root.astro";
+import { getRamblingsIndex } from "utils/ramblings";
+
+const [notes, ramblings, tags] = await Promise.all([
+	getAllNotes({ includeDrafts: import.meta.env.DEV }),
+	getRamblingsIndex(),
+	getAllTags(),
+]);
+
+const tagCounts: Record<string, number> = {};
+for (const note of notes) {
+	for (const tag of note.data.tags) {
+		tagCounts[tag] = (tagCounts[tag] ?? 0) + 1;
+	}
+}
+for (const rambling of ramblings) {
+	for (const tag of rambling.tags) {
+		tagCounts[tag] = (tagCounts[tag] ?? 0) + 1;
+	}
+}
+
+const tagList = Object.entries(tagCounts)
+	.map(([slug, count]) => ({
+		description: tags.find((t) => t.id === slug)?.data?.description,
+		count,
+		slug,
+	}))
+	.sort((a, b) => a.slug.localeCompare(b.slug));
+---
+
+<Root
+	title="Tags"
+	description="All tags used across notes and ramblings."
+	path="/tags"
+>
+	<TagIndexPage {tagList} />
+</Root>
