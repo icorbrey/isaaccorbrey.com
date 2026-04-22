@@ -6,9 +6,10 @@ import TimelineGroup from "components/notes/TimelineGroup.astro";
 type Props = {
   highlightNew: boolean;
   notes: Note[];
+  viewCounts?: Record<string, number>;
 };
 
-const { highlightNew = false, notes = [] } = Astro.props;
+const { highlightNew = false, notes = [], viewCounts = {} } = Astro.props;
 
 const isDraft = (note: Note) => !note.data.publishedOn;
 
@@ -30,6 +31,10 @@ const getMonthGroups = (notes: Note[]) => {
     }
 
     currentGroup.notes.push(note);
+  });
+
+  groups.forEach((group) => {
+    group.notes.sort((a, b) => (viewCounts[b.slug] ?? 0) - (viewCounts[a.slug] ?? 0));
   });
 
   return groups;

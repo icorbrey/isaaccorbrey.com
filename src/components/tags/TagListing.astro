@@ -9,21 +9,23 @@ import type { RamblingSummary } from "utils/ramblings";
 type Props = {
   description?: string;
   notes?: Note[];
+  noteViewCounts?: Record<string, number>;
   ramblings?: RamblingSummary[];
+  ramblingViewCounts?: Record<string, number>;
   tag: string;
 };
 
-const { description, notes = [], ramblings = [], tag } = Astro.props;
+const { description, notes = [], noteViewCounts = {}, ramblings = [], ramblingViewCounts = {}, tag } = Astro.props;
 ---
 
 <TagHeader {tag} {description} />
 <Section title="Notes" link={{ text: "All notes", href: "/notes" }}>
-  <NoteList highlightNew {notes} />
+  <NoteList highlightNew {notes} viewCounts={noteViewCounts} />
 </Section>
 <Section
   title="Ramblings"
   link={{ text: "All ramblings", href: "/ramblings" }}
   class="mt-16"
 >
-  <RamblingList highlightNew ramblings={ramblings} />
+  <RamblingList highlightNew ramblings={ramblings} viewCounts={ramblingViewCounts} />
 </Section>

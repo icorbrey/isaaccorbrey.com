@@ -4,9 +4,18 @@ import Hero from "components/controls/Hero.astro";
 import { getRamblingsIndex, getRamblingsPublication } from "utils/ramblings";
 import RamblingList from "components/ramblings/RamblingList.astro";
 import Prose from "components/controls/Prose.astro";
+import { getPageViews } from "utils/umami";
 
 const ramblings = await getRamblingsIndex();
 const publication = await getRamblingsPublication();
+
+const viewCountEntries = await Promise.all(
+  ramblings.map(async (rambling) => {
+    const views = await getPageViews(`/ramblings/${rambling.path}`);
+    return [rambling.path, views ?? 0] as const;
+  }),
+);
+const viewCounts = Object.fromEntries(viewCountEntries);
 
 ---
 
@@ -24,6 +33,6 @@ const publication = await getRamblingsPublication();
   </Hero>
 
   <div class="w-full pb-16 px-3">
-    <RamblingList ramblings={ramblings} highlightNew />
+    <RamblingList ramblings={ramblings} {viewCounts} highlightNew />
   </div>
 </Root>

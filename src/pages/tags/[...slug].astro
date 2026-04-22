@@ -4,6 +4,7 @@ import { noteStore } from "stores/notes";
 import { tagStore } from "stores/tags";
 import Root from "layouts/Root.astro";
 import { getRamblingsIndex } from "utils/ramblings";
+import { getPageViews } from "utils/umami";
 
 const slug = Astro.params.slug!;
 
@@ -16,10 +17,23 @@ const ramblings = (await getRamblingsIndex()).filter((rambling) =>
 	rambling.tags.includes(slug),
 );
 
+const [noteViewCountEntries, ramblingViewCountEntries] = await Promise.all([
+	Promise.all(notes.map(async (note) => {
+		const views = await getPageViews(`/notes/${note.slug}`);
+		return [note.slug, views ?? 0] as const;
+	})),
+	Promise.all(ramblings.map(async (rambling) => {
+		const views = await getPageViews(`/ramblings/${rambling.path}`);
+		return [rambling.path, views ?? 0] as const;
+	})),
+]);
+const noteViewCounts = Object.fromEntries(noteViewCountEntries);
+const ramblingViewCounts = Object.fromEntries(ramblingViewCountEntries);
+
 const title = `#${slug}`;
 const description = tag?.data?.description;
 ---
 
 <Root {title} {description} path={`/tags/${slug}`}>
-	<TagListing tag={slug} {description} {notes} {ramblings} />
+	<TagListing tag={slug} {description} {notes} {ramblings} {noteViewCounts} {ramblingViewCounts} />
 </Root>

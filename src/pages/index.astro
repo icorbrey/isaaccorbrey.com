@@ -7,6 +7,7 @@ import { getRamblingsIndex } from "utils/ramblings";
 import Prose from "components/controls/Prose.astro";
 import Hero from "components/controls/Hero.astro";
 import { noteStore } from "stores/notes";
+import { getPageViews } from "utils/umami";
 import Root from "layouts/Root.astro";
 
 const notes = await noteStore.getRecent({
@@ -15,6 +16,19 @@ const notes = await noteStore.getRecent({
 });
 
 const ramblings = (await getRamblingsIndex()).slice(0, 20);
+
+const [noteViewCountEntries, ramblingViewCountEntries] = await Promise.all([
+  Promise.all(notes.map(async (note) => {
+    const views = await getPageViews(`/notes/${note.slug}`);
+    return [note.slug, views ?? 0] as const;
+  })),
+  Promise.all(ramblings.map(async (rambling) => {
+    const views = await getPageViews(`/ramblings/${rambling.path}`);
+    return [rambling.path, views ?? 0] as const;
+  })),
+]);
+const noteViewCounts = Object.fromEntries(noteViewCountEntries);
+const ramblingViewCounts = Object.fromEntries(ramblingViewCountEntries);
 
 const description = "I like building tools, breaking workflows, and putting "
   + "them back together better.";
@@ -45,13 +59,13 @@ const links = {
     class="mt-16 sm:mt-10"
   >
     <FeaturedNote class="my-4 hidden sm:block" />
-    <NoteList {notes} highlightNew />
+    <NoteList {notes} highlightNew viewCounts={noteViewCounts} />
   </Section>
   <Section
     title="Ramblings"
     link={{ text: "All ramblings", href: "/ramblings" }}
     class="mt-24 sm:mt-20 gap-6"
   >
-    <RamblingList ramblings={ramblings} highlightNew />
+    <RamblingList ramblings={ramblings} highlightNew viewCounts={ramblingViewCounts} />
   </Section>
 </Root>

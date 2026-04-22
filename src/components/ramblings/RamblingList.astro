@@ -6,9 +6,10 @@ import TimelineGroup from "components/notes/TimelineGroup.astro";
 type Props = {
   highlightNew?: boolean;
   ramblings: RamblingSummary[];
+  viewCounts?: Record<string, number>;
 };
 
-const { highlightNew = false, ramblings = [] } = Astro.props;
+const { highlightNew = false, ramblings = [], viewCounts = {} } = Astro.props;
 
 const isNew = (rambling: RamblingSummary) =>
   highlightNew &&
@@ -39,6 +40,10 @@ const getMonthGroups = (ramblings: RamblingSummary[]) => {
     }
 
     currentGroup.ramblings.push(rambling);
+  });
+
+  groups.forEach((group) => {
+    group.ramblings.sort((a, b) => (viewCounts[b.path] ?? 0) - (viewCounts[a.path] ?? 0));
   });
 
   return groups;

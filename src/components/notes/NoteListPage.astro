@@ -7,9 +7,10 @@ import Prose from "components/controls/Prose.astro";
 
 type Props = {
   notes: Note[];
+  viewCounts?: Record<string, number>;
 };
 
-const { notes = [] } = Astro.props;
+const { notes = [], viewCounts = {} } = Astro.props;
 ---
 
 <Hero title="Notes">
@@ -30,7 +31,7 @@ const { notes = [] } = Astro.props;
   ) : (
     <div class="w-full px-3">
       <FeaturedNote class="my-4 hidden sm:block" />
-      <NoteList highlightNew {notes} />
+      <NoteList highlightNew {notes} {viewCounts} />
     </div>
   )
 }
