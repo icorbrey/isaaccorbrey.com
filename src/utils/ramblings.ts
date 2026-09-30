@@ -7,6 +7,8 @@ const PLC_DIRECTORY_BASE = "https://plc.directory";
 const PUBLICATION_URI =
   "at://did:plc:zviscnpwyvj6y32agi5davn5/site.standard.publication/3me7e3v47hr2l";
 const CACHE_TTL_MS = 12 * 60 * 1000;
+const VIDEO_EMBED_HOSTS =
+  /(?:^|\.)(?:youtube(?:-nocookie)?\.com|youtu\.be|player\.vimeo\.com)$/i;
 
 type PdsRecord = {
   cid: string;
@@ -494,14 +496,14 @@ const renderBlock = async (
       return `<div class="pckt-website"><a href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${titleHtml}${descriptionHtml}</a></div>`;
     }
     case "blog.pckt.block.iframe": {
-      const attrs = block.attrs ?? {};
-      const src = attrs.src ?? attrs.url;
-      if (!src) return "";
-      const title = attrs.title ? ` title="${escapeHtml(attrs.title)}"` : "";
-      const height = attrs.height ? ` height="${attrs.height}"` : "";
-      const width = attrs.width ? ` width="${attrs.width}"` : "";
-      const allow = attrs.allow ? ` allow="${escapeHtml(attrs.allow)}"` : "";
-      return `<iframe src="${escapeHtml(src)}"${title}${height}${width}${allow} loading="lazy"></iframe>`;
+      const { url, height } = block;
+      if (!url) return "";
+      let isVideo = false;
+      try {
+        isVideo = VIDEO_EMBED_HOSTS.test(new URL(url).hostname);
+      } catch {}
+      const sizing = isVideo ? "aspect-ratio: 16 / 9" : `height: ${Number(height) || 500}px`;
+      return `<iframe src="${escapeHtml(url)}" class="w-full" style="${sizing}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
     }
     case "blog.pckt.block.blueskyEmbed": {
       const uri = block.uri ?? block.attrs?.uri ?? block.attrs?.url;
@@ -611,7 +613,7 @@ const sanitizeContent = (html: string) =>
     allowedAttributes: {
       a: ["href", "rel", "target"],
       img: ["src", "alt", "title", "width", "height", "loading"],
-      iframe: ["src", "title", "height", "width", "allow", "loading"],
+      iframe: ["src", "title", "height", "width", "allow", "allowfullscreen", "loading"],
       "*": ["class", "style", "colspan", "rowspan", "id"],
     },
     allowedSchemes: ["http", "https", "mailto"],
