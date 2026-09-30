@@ -1,4 +1,5 @@
 import sanitizeHtml from "sanitize-html";
+import GithubSlugger from "github-slugger";
 import { readFile } from "node:fs/promises";
 import readingTime from "reading-time";
 
@@ -619,6 +620,15 @@ const sanitizeContent = (html: string) =>
     allowedSchemes: ["http", "https", "mailto"],
   });
 
+// TK: same slugs as Astro's markdown heading ids
+const addHeadingIds = (html: string) => {
+  const slugger = new GithubSlugger();
+  return html.replace(/<h([1-6])>(.*?)<\/h\1>/gs, (_, level, inner: string) => {
+    const text = inner.replace(/<[^>]*>|&[^;]+;/g, "");
+    return `<h${level} id="${escapeHtml(slugger.slug(text))}">${inner}</h${level}>`;
+  });
+};
+
 const renderFallback = (textContent: string) => {
   const paragraphs = textContent
     .split(/\n{2,}/g)
@@ -730,7 +740,7 @@ export const renderRambling = async (
     html = renderFallback(value.textContent);
   }
 
-  html = sanitizeContent(html);
+  html = sanitizeContent(addHeadingIds(html));
 
   return {
     html,

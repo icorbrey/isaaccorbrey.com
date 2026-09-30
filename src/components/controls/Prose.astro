@@ -16,3 +16,39 @@
 >
   <slot />
 </div>
+
+<script>
+  for (const heading of document.querySelectorAll(".prose :is(h1, h2, h3, h4, h5, h6)[id]")) {
+    const anchor = document.createElement("a");
+    anchor.href = `#${encodeURIComponent(heading.id)}`;
+    anchor.className = "heading-anchor";
+    anchor.ariaLabel = `Link to section: ${heading.textContent}`;
+    anchor.textContent = "#";
+    heading.append(anchor);
+  }
+</script>
+
+<style is:global>
+  .prose :is(h1, h2, h3, h4, h5, h6) > a.heading-anchor {
+    margin-left: 0.4em;
+    color: theme("colors.fg.4");
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6):hover > a.heading-anchor,
+  .prose a.heading-anchor:focus-visible {
+    opacity: 1;
+  }
+
+  .prose a.heading-anchor:hover {
+    color: theme("colors.blue.300");
+  }
+
+  @media (hover: none) {
+    .prose a.heading-anchor {
+      opacity: 1;
+    }
+  }
+</style>

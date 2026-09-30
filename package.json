@@ -21,6 +21,7 @@
     "@atproto/api": "^0.14.20",
     "@types/babel__generator": "^7.6.8",
     "astro": "^5.14.6",
+    "github-slugger": "^2.0.0",
     "luxon": "^3.5.0",
     "markdown-it": "^14.1.0",
     "marked": "^15.0.3",

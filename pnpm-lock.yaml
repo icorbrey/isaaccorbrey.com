@@ -32,6 +32,9 @@ importers:
       astro:
         specifier: ^5.14.6
         version: 5.14.6(@netlify/blobs@8.1.1)(@types/node@24.8.1)(jiti@1.21.6)(rollup@4.34.9)(typescript@5.8.2)(yaml@2.6.1)
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       luxon:
         specifier: ^3.5.0
         version: 3.5.0
